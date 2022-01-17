@@ -15,7 +15,6 @@ export class FailedOrdersComponent implements OnInit {
   OrderType = OrderType;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
-    console.log(this.item$.subscribe((res) => console.log(res)));
   }
 
   success: boolean = false;

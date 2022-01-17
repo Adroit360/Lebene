@@ -168,12 +168,12 @@ export class OrderPageComponent implements OnInit {
         [food.foodName]: food.quantity,
       })),
     };
-    console.log(this.orderDetails);
+
     let valError = this.validateOrder(this.orderDetails);
     if (valError) {
       return;
     }
-    // console.log(this.orderDetails);
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

@@ -21,26 +21,19 @@ interface Order {
 export class SingleOrderComponent implements OnInit {
   OrderType = OrderType;
 
-  @Input("item") item:OrderDetailsAdmin = {} as OrderDetailsAdmin;
-  @Input("orderType") orderType:OrderType = OrderType.failed
-  numberOfPacks:any[] =[]
-  packKeys:string[] = []
+  @Input('item') item: OrderDetailsAdmin = {} as OrderDetailsAdmin;
+  @Input('orderType') orderType: OrderType = OrderType.failed;
 
-  constructor(private firestore: AngularFirestore) {
-    
-  }
+  constructor(private firestore: AngularFirestore) {}
 
-  ngOnInit(): void {
-    this.numberOfPacks = this.item.numberOfPacks;
-    this.packKeys = Object.values(this.numberOfPacks);
-  }
+  ngOnInit(): void {}
 
   success: boolean = false;
 
   onOrderDelivered(id: string, orderId: string): void {
     if (window.confirm(`Are you sure you want to comfirm oder: ${orderId}?`)) {
       this.updateOrder(id, { completed: true })
-        // .then((res) => console.log(res))
+        // .then((res) => (res))
         .catch((err) => {});
       this.success = true;
     }
@@ -49,8 +42,8 @@ export class SingleOrderComponent implements OnInit {
   onCancelOrder(id: string, orderId: string) {
     if (window.confirm(`Do you really want to delete oder: ${orderId}?`)) {
       this.deleteOrder(id)
-        // .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        // .then((res) => (res))
+        .catch((err) => err);
     }
   }
 
@@ -63,8 +56,8 @@ export class SingleOrderComponent implements OnInit {
   }
 }
 
-export enum OrderType{
+export enum OrderType {
   completed = 0,
-  failed =1,
+  failed = 1,
   pendingOrder = 2,
 }
