@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
+  showFailed = false;
   @Output('toggleSideBar') toggleSidebarEvent = new EventEmitter();
   constructor(
     private authService: AuthenticationService,

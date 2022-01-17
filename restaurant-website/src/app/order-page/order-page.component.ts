@@ -113,7 +113,7 @@ export class OrderPageComponent implements OnInit {
           this.paymentLoading = false;
           setTimeout(() => {
             this.paymentError = false;
-          }, 4000);
+          }, 30000);
         } else if (this.data.status === 'PAID') {
           this.paymentError = false;
           // this.paymentSuccess = true;
