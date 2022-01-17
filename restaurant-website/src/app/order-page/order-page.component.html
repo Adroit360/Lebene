@@ -1,0 +1,279 @@
+<!--POPUP MODAL-->
+<div class="modal" *ngIf="modalOpen">
+  <div class="popup center">
+    <div class="icon">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="title">Success!!</div>
+    <div class="description">
+      Thank you for your order. Please wait while the delivery guy attends to
+      you😊
+    </div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onCloseModal()">Dismiss</button>
+    </div>
+  </div>
+</div>
+<!--END POPUP MODAL-->
+
+<!--POPUP MODAL-->
+<div class="modal" *ngIf="addAnotherItemModal">
+  <div style="max-height: calc(100vh - 4rem)" class="popup center">
+    <div class="header">
+      <div class="left">Add Another Food</div>
+      <div (click)="closeAddAnotherItemModal()" class="right pill">close</div>
+    </div>
+    <div
+      style="overflow: auto; max-height: calc(100vh - 10rem)"
+      class="menu__container"
+    >
+      <div class="menu__meal__card" *ngFor="let item of foodArray">
+        <div class="card__image">
+          <img src="{{ item.image }}" alt="{{ item.alt }}" />
+        </div>
+        <div class="card__body">{{ item.body }}</div>
+        <div class="card__price">
+          <h4>{{ "GHS " + item.price }}</h4>
+          <button (click)="addFood(item.id)">Add Food</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END POPUP MODAL-->
+
+<!---PAYMENT RESPONSE MODAL-->
+<div class="modal payment__loading2" *ngIf="paymentLoading">
+  <div class="popup center">
+    <div class="description">
+      {{ paymentReason }}
+    </div>
+    <div class="icon">
+      <div class="loader"></div>
+    </div>
+  </div>
+</div>
+<!---END PAYMENT RESPONSE MODAL-->
+<!--PAYMENT FAILED MODAL-->
+<div class="modal payment__error2" *ngIf="paymentError">
+  <div class="popup center">
+    <div class="icon">
+      <span class="material-icons"> info </span>
+    </div>
+    <div class="title">Error!!</div>
+    <div class="description">
+      <p>{{ error }}</p>
+    </div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</div>
+<!--END PAYMENT FAILED MODAL-->
+<div class="form-container">
+  <nav class="navbar">
+    <div class="navbar__logo">
+      <img src="../../assets/salad.png" alt="company logo" />
+    </div>
+    <div class="navbar__links">
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- <div class="payment__error" *ngIf="paymentError">
+      <div class="info">
+        <span class="material-icons"> info </span>
+        <p>{{ error }}</p>
+      </div>
+      <span class="material-icons close" (click)="onClose()"> close </span>
+    </div> -->
+    <!-- <div class="payment__success" *ngIf="paymentSuccess">
+      <div class="info">
+        <span class="material-icons"> check_circle </span>
+        <p>{{ success }}</p>
+      </div>
+      <span class="material-icons close" (click)="onClose()"> close </span>
+    </div> -->
+    <!-- <div class="payment__loading" *ngIf="paymentLoading">
+      <div class="loader"></div>
+      <p>{{ paymentReason }}</p>
+    </div> -->
+    <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <h1 class="form__title">Place order</h1>
+      <div class="form__container">
+        <div class="form__control">
+          <label for="foodOrdered">Item(s)</label>
+          <div class="food-name-container"  *ngFor="let item of foodsOrdered">
+            <input
+              type="text"
+              placeholder="Enter food"
+              name="foodOrdered"
+              class="food-name-input"
+              value="{{ item.foodName }}"
+              readonly
+            />
+            <div (click)="removeFood(item.id)" class="remove-food pill"> <i class="fa fa-trash-o"></i> </div>
+          </div>
+
+          <div (click)="addAnotherItem()" class="add-another">
+            <span>+</span><span>Add Another Item</span>
+          </div>
+        </div>
+        <div class="form__control">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            name="name"
+            id="name"
+            formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+          />
+          <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+            <div *ngIf="f['name'].errors['required']">Name is required</div>
+          </div>
+        </div>
+        <div class="form__control">
+          <label for="phoneNumber">Phone Number(mobile money)</label>
+          <input
+            type="text"
+            placeholder="Enter Your Phone number"
+            name="phoneNumber"
+            id="phoneNumber"
+            formControlName="phoneNumber"
+            [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
+          />
+          <div
+            *ngIf="submitted && f['phoneNumber'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['phoneNumber'].errors['required']">
+              phone number is required
+            </div>
+            <div *ngIf="f['phoneNumber'].errors['pattern']">
+              enter a valid phone number
+            </div>
+          </div>
+        </div>
+        <div class="form__control">
+          <label for="location">Location</label>
+          <input
+            list="location_lists"
+            placeholder="Enter or choose the closest location"
+            name="location"
+            id="location"
+            formControlName="location"
+            [ngClass]="{
+              'is-invalid':
+                (submitted && f['location'].errors) || invalidLocation
+            }"
+            (change)="onCalculateFee($event)"
+          />
+          <datalist id="location_lists">
+            <option
+              *ngFor="let city of locations"
+              value="{{ city.name }}"
+            ></option>
+          </datalist>
+          <div
+            *ngIf="submitted && f['location'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['location'].errors['required']">
+              location is required
+            </div>
+          </div>
+          <div
+            *ngIf="!(submitted && f['location'].errors) && invalidLocation"
+            class="invalid-feedback"
+          >
+            <div>Select a valid location</div>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label for="numberOfPacks">Number of packs</label>
+          <div class="number-of-packs-container" *ngFor="let item of foodsOrdered">
+            <div class="food-name">{{item.foodName}}</div>
+            <input
+            type="number"
+            min="1"
+            name="numberOfPacks"
+            [(ngModel)]="item.quantity"
+            id="numberOfPacks"
+            formControlName="numberOfPacks"
+            (change)="calculateAmount($event)"
+            (keyup)="calculateAmount($event)"
+            [ngClass]="{ 'is-invalid': !item.quantity}"
+          />
+          </div>
+         
+          <div
+            *ngIf="submitted && f['numberOfPacks'].errors"
+            class="invalid-feedback"
+          >
+            <div>Enter a valid number</div>
+          </div>
+        </div>
+        <!-- <div class="form__control">
+          <label for="note">Notes </label>
+          <textarea
+            type="text"
+            placeholder="Add any additional comments or any allergies..."
+            name="note"
+            id="note"
+            formControlName="note"
+          ></textarea>
+        </div>
+        <div class="form__control">
+          <label for="comment">Delivery Fee</label>
+          <input
+            type="text"
+            placeholder="deliveryFee"
+            name="deliveryFee"
+            id="deliveryFee"
+            formControlName="deliveryFee"
+            readonly
+          />
+        </div>
+        <div class="form__control">
+          <label for="comment">Amount</label>
+          <input
+            type="text"
+            placeholder="amount"
+            name="amount"
+            id="amount"
+            formControlName="amount"
+            [ngClass]="{ 'is-invalid': submitted && f['amount'].errors }"
+            readonly
+          />
+          <div *ngIf="submitted && f['amount'].errors" class="invalid-feedback">
+            <div *ngIf="f['amount'].errors['required']">amount is required</div>
+          </div>
+        </div> -->
+
+        <div class="price-info">
+          <div class="info-item">
+            <p>Delivery Fee :</p>
+            {{ deliveryFee.toFixed(2) }}
+          </div>
+          <div class="info-item">
+            <p>Price of Food :</p>
+            {{ priceOfFood }}
+          </div>
+
+          <hr />
+          <div class="info-item">
+            <p>Total Price :</p>
+            {{ totalPrice.toFixed(2) }}
+          </div>
+        </div>
+
+        <button type="submit">Place Order</button>
+      </div>
+    </form>
+  </div>
+</div>

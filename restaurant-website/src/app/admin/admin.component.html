@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="closingTime__error" *ngIf="closeOrder">
+    <div class="info">
+      <span class="material-icons"> info </span>
+      <p>Orders are closed. Open orders</p>
+    </div>
+    <!-- <span class="material-icons close" (click)="onClose()"> close </span> -->
+  </div>
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="display-page">
+    <!-- <app-display-page></app-display-page> -->
+    <!-- <app-completed-orders></app-completed-orders> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
