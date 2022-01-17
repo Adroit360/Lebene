@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
+import { OrderType } from '../single-order/single-order.component';
 
 interface Order {
   // foodName: string;
@@ -19,8 +20,10 @@ interface Order {
 })
 export class DisplayPageComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
+  OrderType= OrderType;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
+    console.log(this.item$.subscribe((res) => console.log(res)));
   }
 
   success: boolean = false;

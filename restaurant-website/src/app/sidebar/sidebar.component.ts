@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { io } from 'socket.io-client';
@@ -13,12 +13,16 @@ export class SidebarComponent implements OnInit {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
+  showFailed = false;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private activatedRoute:ActivatedRoute
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
+    this.showFailed = activatedRoute.snapshot.queryParams["showFailed"];
+    console.log("showFailed",this.showFailed);
   }
 
   ngOnInit(): void {

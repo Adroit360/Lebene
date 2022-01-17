@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
+  
   constructor(private router: Router, private http: HttpClient) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
   }

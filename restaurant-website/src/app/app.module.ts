@@ -34,10 +34,25 @@ import { DisplayPageComponent } from './display-page/display-page.component';
 import { CompletedOrdersComponent } from './completed-orders/completed-orders.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FailedOrdersComponent } from './failed-orders/failed-orders.component';
-
+import { IsArrayPipe } from 'src/pipes/is-array.pipe';
+import { KeysPipe } from 'src/pipes/keys.pipe';
+import { SingleOrderComponent } from './single-order/single-order.component';
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, OrderPageComponent, AdminComponent, LoginComponent, DisplayPageComponent, CompletedOrdersComponent, SidebarComponent, FailedOrdersComponent],
+  declarations: [
+    AppComponent,
+    HomepageComponent,
+    OrderPageComponent,
+    AdminComponent,
+    LoginComponent,
+    DisplayPageComponent,
+    CompletedOrdersComponent,
+    SidebarComponent,
+    FailedOrdersComponent,
+    SingleOrderComponent,
+    IsArrayPipe,
+    KeysPipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

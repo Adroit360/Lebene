@@ -54,7 +54,7 @@ export interface OrderDetailsAdmin {
   note?: string;
   completed: boolean;
   Id: string;
-  numberOfPacks: {[key: string]: number};
+  numberOfPacks: {[key: string]: number}[];
   deliveryFee: number;
   priceOfFood: string;
   orderPaid: boolean;
