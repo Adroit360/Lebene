@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { io } from 'socket.io-client';
 
 @Component({
@@ -13,16 +13,13 @@ export class SidebarComponent implements OnInit {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
-  showFailed = false;
+  @Output('toggleSideBar') toggleSidebarEvent = new EventEmitter();
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private http: HttpClient,
-    private activatedRoute:ActivatedRoute
+    private http: HttpClient
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
-    this.showFailed = activatedRoute.snapshot.queryParams["showFailed"];
-    console.log("showFailed",this.showFailed);
   }
 
   ngOnInit(): void {
@@ -67,6 +64,7 @@ export class SidebarComponent implements OnInit {
         httpOptions
       )
       .subscribe();
+    this.onToggleSidebar();
   }
 
   onCloseOrders() {
@@ -82,5 +80,10 @@ export class SidebarComponent implements OnInit {
         httpOptions
       )
       .subscribe();
+    this.onToggleSidebar();
+  }
+
+  onToggleSidebar() {
+    this.toggleSidebarEvent.emit(false);
   }
 }
