@@ -62,6 +62,10 @@
     </div>
     <div class="title">Error!!</div>
     <div class="description">
+      <p>
+        If you are using MTN, please dial *170#, select my approvals and approve
+        the payment. It will work👌
+      </p>
       <p>{{ error }}</p>
     </div>
     <div class="dismiss-btn">
@@ -106,7 +110,7 @@
       <div class="form__container">
         <div class="form__control">
           <label for="foodOrdered">Item(s)</label>
-          <div class="food-name-container"  *ngFor="let item of foodsOrdered">
+          <div class="food-name-container" *ngFor="let item of foodsOrdered">
             <input
               type="text"
               placeholder="Enter food"
@@ -115,7 +119,9 @@
               value="{{ item.foodName }}"
               readonly
             />
-            <div (click)="removeFood(item.id)" class="remove-food pill"> <i class="fa fa-trash-o"></i> </div>
+            <div (click)="removeFood(item.id)" class="remove-food pill">
+              <i class="fa fa-trash-o"></i>
+            </div>
           </div>
 
           <div (click)="addAnotherItem()" class="add-another">
@@ -196,21 +202,24 @@
 
         <div class="form__control">
           <label for="numberOfPacks">Number of packs</label>
-          <div class="number-of-packs-container" *ngFor="let item of foodsOrdered">
-            <div class="food-name">{{item.foodName}}</div>
+          <div
+            class="number-of-packs-container"
+            *ngFor="let item of foodsOrdered"
+          >
+            <div class="food-name">{{ item.foodName }}</div>
             <input
-            type="number"
-            min="1"
-            name="numberOfPacks"
-            [(ngModel)]="item.quantity"
-            id="numberOfPacks"
-            formControlName="numberOfPacks"
-            (change)="calculateAmount($event)"
-            (keyup)="calculateAmount($event)"
-            [ngClass]="{ 'is-invalid': !item.quantity}"
-          />
+              type="number"
+              min="1"
+              name="numberOfPacks"
+              [(ngModel)]="item.quantity"
+              id="numberOfPacks"
+              formControlName="numberOfPacks"
+              (change)="calculateAmount($event)"
+              (keyup)="calculateAmount($event)"
+              [ngClass]="{ 'is-invalid': !item.quantity }"
+            />
           </div>
-         
+
           <div
             *ngIf="submitted && f['numberOfPacks'].errors"
             class="invalid-feedback"
