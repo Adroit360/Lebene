@@ -311,8 +311,8 @@ export class OrderPageComponent implements OnInit {
   }
 
   getTotalPrice(deliveryFee: number, priceOfFood: string): number {
-    return deliveryFee + parseInt(priceOfFood);
-    // return 0.01;
+    //return deliveryFee + parseInt(priceOfFood);
+    return 0.01;
   }
   onCloseModal(): void {
     this.modalOpen = false;
@@ -339,6 +339,14 @@ export class OrderPageComponent implements OnInit {
       quantity: 1,
       price: +data.price,
     });
+
+    this.priceOfFood = this.foodsOrdered
+      .reduce(function (sum, food) {
+        const updatedSum = sum + food.price;
+        return updatedSum;
+      }, 0)
+      .toFixed(2);
+
     this.closeAddAnotherItemModal();
   }
 
