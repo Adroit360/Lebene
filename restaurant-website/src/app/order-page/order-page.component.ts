@@ -347,10 +347,20 @@ export class OrderPageComponent implements OnInit {
       }, 0)
       .toFixed(2);
 
+    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+
     this.closeAddAnotherItemModal();
   }
 
   removeFood(id: string): void {
     this.foodsOrdered = this.foodsOrdered.filter((item) => item.id !== id);
+    this.priceOfFood = this.foodsOrdered
+      .reduce(function (sum, food) {
+        const updatedSum = sum + food.price * food.quantity;
+        return updatedSum;
+      }, 0)
+      .toFixed(2);
+
+    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
   }
 }
