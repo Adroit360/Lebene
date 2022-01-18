@@ -51,25 +51,25 @@ export class HomepageComponent implements OnInit {
     //     }
     //   });
 
-    // this.http
-    //   .get('https://restaurant-payment-backend.herokuapp.com/')
-    //   .subscribe((res: any) => {
-    //     this.orderStatus = res.orderStatus;
-    //     if (this.orderStatus) {
-    //       this.closingTimeError = true;
-    //     } else {
-    //       this.closingTimeError = false;
-    //     }
-    //   });
+    this.http
+      .get('https://restaurant-payment-backend.herokuapp.com/')
+      .subscribe((res: any) => {
+        this.orderStatus = res.orderStatus;
+        if (this.orderStatus) {
+          this.closingTimeError = true;
+        } else {
+          this.closingTimeError = false;
+        }
+      });
 
-    // this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
-    //   this.orderStatus = res.orderStatus;
-    //   if (res.orderStatus) {
-    //     this.closingTimeError = true;
-    //   } else {
-    //     this.closingTimeError = false;
-    //   }
-    // });
+    this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
+      this.orderStatus = res.orderStatus;
+      if (res.orderStatus) {
+        this.closingTimeError = true;
+      } else {
+        this.closingTimeError = false;
+      }
+    });
 
     this.foodArray = this.socketService.getAllFoods();
   }
