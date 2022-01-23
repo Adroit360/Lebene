@@ -13,8 +13,12 @@ import { OrderType } from '../single-order/single-order.component';
 export class FailedOrdersComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
+  data: any;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
+    // this.data = this.item$.subscribe((res) => {
+    //   res.forEach((item) => this.deleteOrder(item.Id));
+    // });
   }
 
   success: boolean = false;
