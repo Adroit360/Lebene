@@ -56,6 +56,7 @@ export class OrderPageComponent implements OnInit {
     numberOfPacks: new FormControl(''),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
+    robot: new FormControl(''),
   });
 
   orderDetails: any;
@@ -146,6 +147,9 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
+    if (this.orderForm.value.robot) {
+      return;
+    }
     if (this.orderForm.invalid || this.invalidLocation) {
       return;
     }

@@ -238,6 +238,15 @@
           ></textarea>
         </div>
 
+        <input
+          class="robot"
+          type="text"
+          name="robot"
+          id="robot"
+          formControlName="robot"
+          [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+        />
+
         <div class="price-info">
           <div class="info-item">
             <p>Delivery Fee :</p>
