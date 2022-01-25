@@ -16,9 +16,6 @@ export class FailedOrdersComponent implements OnInit {
   data: any;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
-    // this.data = this.item$.subscribe((res) => {
-    //   res.forEach((item) => this.deleteOrder(item.Id));
-    // });
   }
 
   success: boolean = false;
@@ -59,5 +56,16 @@ export class FailedOrdersComponent implements OnInit {
 
   deleteOrder(id: string): Promise<void> {
     return this.firestore.collection('orders').doc(id).delete();
+  }
+
+  onDeleteAllFailedOrders() {
+    this.exampleGetCollection().subscribe((res) => {
+      // console.log('Deleting....');
+      // res.forEach((item: any) => {
+      //   this.deleteOrder(item.Id);
+      //   // console.log(item.Id);
+      // });
+      // console.log('Done....');
+    });
   }
 }

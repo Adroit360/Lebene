@@ -1,7 +1,12 @@
 <main class="display__container">
+  <!-- <button (click)="onDeleteAllFailedOrders()">DELETE ALL FAILED ORDERS</button> -->
   <h1 class="title">Failed and Proccessing Orders</h1>
   <div class="display__container__items">
-    <app-single-order *ngFor="let item of item$ | async" [item]="item" [orderType]="OrderType.failed"></app-single-order>
+    <app-single-order
+      *ngFor="let item of item$ | async"
+      [item]="item"
+      [orderType]="OrderType.failed"
+    ></app-single-order>
   </div>
   <!-- <div
       class="display__container__items__card"
