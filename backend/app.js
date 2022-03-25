@@ -129,15 +129,9 @@ app.post("/api/reditpayment", async function (req, res) {
           .get()
       ).docs[0].id;
 
-      let orderDetails = await db.collection("orders").doc(orderId).update({
+      await db.collection("orders").doc(orderId).update({
         orderPaid: true,
       });
-      axios
-        .get(
-          `http://sms.adroit360gh.com/sms/api?action=send-sms&api_key=YWRtaW46YWRtaW4ucGFzc3dvcmQ=&to=${orderDetails.phoneNumber}&from=LEBENE&sms=Thank you for ${orderDetails.name} your order
-Your order ID is ${data.clienttransid}. A dispatch rider will contact you shortly. For any enquiry contact ******. Thank you.`
-        )
-        .catch((error) => console.log(error));
     }
 
     io.emit("notification", { data });

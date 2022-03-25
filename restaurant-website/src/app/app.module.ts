@@ -37,6 +37,7 @@ import { FailedOrdersComponent } from './failed-orders/failed-orders.component';
 import { IsArrayPipe } from 'src/pipes/is-array.pipe';
 import { KeysPipe } from 'src/pipes/keys.pipe';
 import { SingleOrderComponent } from './single-order/single-order.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SingleOrderComponent } from './single-order/single-order.component';
     SingleOrderComponent,
     IsArrayPipe,
     KeysPipe,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

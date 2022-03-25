@@ -14,8 +14,21 @@ export class FailedOrdersComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   data: any;
+  numberArray: { name: string; phoneNumber: string }[] = [];
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
+    // this.item$.subscribe((items) => {
+    //   let TotalAmount = 0;
+    //   // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));
+    //   // console.log('total : ', TotalAmount);
+    //   items.forEach((item) =>
+    //     this.numberArray.push({
+    //       name: item.name,
+    //       phoneNumber: item.phoneNumber,
+    //     })
+    //   );
+    //   console.log(this.numberArray);
+    // });
   }
 
   success: boolean = false;

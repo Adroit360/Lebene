@@ -12,8 +12,21 @@ import { OrderType } from '../single-order/single-order.component';
 export class CompletedOrdersComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
+  numberArray: { name: string; phoneNumber: string }[] = [];
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.GetCompletedOrdersCollection();
+    // this.item$.subscribe((items) => {
+    //   let TotalAmount = 0;
+    //   // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));
+    //   // console.log('total : ', TotalAmount);
+    //   items.forEach((item) =>
+    //     this.numberArray.push({
+    //       name: item.name,
+    //       phoneNumber: item.phoneNumber,
+    //     })
+    //   );
+    //   console.log({ numbers: this.numberArray });
+    // });
   }
 
   ngOnInit(): void {
