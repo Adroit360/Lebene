@@ -9,14 +9,14 @@ const { Server } = require("socket.io");
 const { initializeApp } = require("firebase-admin/app");
 const axios = require("axios");
 
-// const admin = require("firebase-admin");
+const admin = require("firebase-admin");
 
-// const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = require("./serviceAccountKey.json");
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://restaurant-2a643-default-rtdb.firebaseio.com",
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://restaurant-2a643-default-rtdb.firebaseio.com",
+});
 
 const corsOptions = {
   origin: "https://lebenebeans.com/",
@@ -106,7 +106,7 @@ app.post("/api/payment", cors(corsOptions), async (req, res, next) => {
   // console.log(req.body.orderDetails);
 
   try {
-    // await db.collection("orders").add(req.body.orderDetails);
+    await db.collection("orders").add(req.body.orderDetails);
     const data = await post(receive.url, receive.json);
     io.emit("notification", { data });
     res.send(data);
