@@ -122,16 +122,24 @@ app.post("/api/reditpayment", async function (req, res) {
 
   try {
     if (data.status == "PAID") {
-      let orderId = (
+      let order = (
         await db
           .collection("orders")
           .where("orderId", "==", data.clienttransid)
           .get()
-      ).docs[0].id;
+      ).docs[0];
 
-      await db.collection("orders").doc(orderId).update({
+      await db.collection("orders").doc(order.id).update({
         orderPaid: true,
       });
+
+      await axios.post(
+        "https://us-central1-delivery-system-adroit.cloudfunctions.net/postOrderToDeliverySystem",
+        {
+          sellerName: "Lebene",
+          orderDetails: order.data(),
+        }
+      );
     }
 
     io.emit("notification", { data });
