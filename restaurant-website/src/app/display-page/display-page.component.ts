@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
 import { OrderType } from '../single-order/single-order.component';
 
@@ -21,13 +21,33 @@ interface Order {
 export class DisplayPageComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
+  notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
+  isFirstTime = true;
+  itemLength: number = 0;
+  subscriptions: Subscription[] = [];
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
+    let itemSubs = this.item$.subscribe((res) => {
+
+      if (!this.isFirstTime && res.length > this.itemLength)
+        this.notificationAudio.play();
+      else this.isFirstTime = false;
+
+      this.itemLength = res.length;
+    });
+
+    this.subscriptions.push(itemSubs);
   }
 
   success: boolean = false;
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscriptions.forEach((sub) => sub?.unsubscribe());
+  }
 
   exampleGetCollection(): Observable<any> {
     return this.firestore

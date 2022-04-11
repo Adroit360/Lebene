@@ -19,23 +19,23 @@ export class CompletedOrdersComponent implements OnInit {
   totalCount = 0;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.GetCompletedOrdersCollection();
-    this.item$.subscribe((items) => {
-      // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));
-      // console.log('total : ', TotalAmount);
-      items.forEach((item) => {
-        if (
-          parseInt(item.date) >= this.startDate.getTime() &&
-          parseInt(item.date) <= this.endDate
-        ) {
-          this.totalAmount += parseFloat(item.amount);
-          this.totalCount += 1;
-        }
-      });
-      console.log({
-        totalAmount: this.totalAmount,
-        totalCount: this.totalCount,
-      });
-    });
+    // this.item$.subscribe((items) => {
+    //   // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));
+    //   // console.log('total : ', TotalAmount);
+    //   items.forEach((item) => {
+    //     if (
+    //       parseInt(item.date) >= this.startDate.getTime() &&
+    //       parseInt(item.date) <= this.endDate
+    //     ) {
+    //       this.totalAmount += parseFloat(item.amount);
+    //       this.totalCount += 1;
+    //     }
+    //   });
+    //   console.log({
+    //     totalAmount: this.totalAmount,
+    //     totalCount: this.totalCount,
+    //   });
+    // });
   }
 
   ngOnInit(): void {

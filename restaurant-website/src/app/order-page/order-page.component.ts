@@ -90,8 +90,8 @@ export class OrderPageComponent implements OnInit {
       this.price = data.price;
       this.priceOfFood = data.price;
       this.orderForm.patchValue({
-        // amount: data.price,
-        amount: '0.01',
+        amount: data.price,
+        // amount: '0.01',
         foodOrdered: data.body,
       });
       this.foodsOrdered.push({
@@ -105,6 +105,7 @@ export class OrderPageComponent implements OnInit {
 
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
+      // console.log(this.data);
       if (this.clientTransactionId === this.data.clienttransid) {
         this.paymentReason = 'Processing payment...';
 
