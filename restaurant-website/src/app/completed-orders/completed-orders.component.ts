@@ -22,19 +22,19 @@ export class CompletedOrdersComponent implements OnInit {
     this.item$.subscribe((items) => {
       // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));
       // console.log('total : ', TotalAmount);
-      items.forEach((item) => {
-        if (
-          parseInt(item.date) >= this.startDate.getTime() &&
-          parseInt(item.date) <= this.endDate
-        ) {
-          this.totalAmount += parseFloat(item.amount);
-          this.totalCount += 1;
-        }
-      });
-      console.log({
-        totalAmount: this.totalAmount,
-        totalCount: this.totalCount,
-      });
+      //   items.forEach((item) => {
+      //     if (
+      //       parseInt(item.date) >= this.startDate.getTime() &&
+      //       parseInt(item.date) <= this.endDate
+      //     ) {
+      //       this.totalAmount += parseFloat(item.amount);
+      //       this.totalCount += 1;
+      //     }
+      //   });
+      //   console.log({
+      //     totalAmount: this.totalAmount,
+      //     totalCount: this.totalCount,
+      //   });
     });
   }
 

@@ -103,4 +103,5 @@ export const cities = [
   { name: 'West Legon', price: 25 },
   { name: 'Zoti Area', price: 25 },
   { name: 'Laterbiokoshie', price: 25 },
+  { name: 'Tabora', price: 25 },
 ];
