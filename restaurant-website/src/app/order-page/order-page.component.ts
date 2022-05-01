@@ -84,6 +84,7 @@ export class OrderPageComponent implements OnInit {
   clientTransactionId = '';
 
   ngOnInit(): void {
+    window.scroll(0, 0);
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
       const data: Food = this.socketService.getFoodByID(id);
