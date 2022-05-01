@@ -32,6 +32,7 @@ export class OrderPageComponent implements OnInit {
     price: number;
   }[] = [];
   foodArray: any[] = [];
+  loading = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,

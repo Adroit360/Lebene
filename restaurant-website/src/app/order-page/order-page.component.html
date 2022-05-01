@@ -263,7 +263,10 @@
           </div>
         </div>
 
-        <button type="submit">Place Order</button>
+        <button type="submit">
+          <div class="loader" *ngIf="loading"></div>
+          <p *ngIf="!loading">Place Order</p>
+        </button>
       </div>
     </form>
   </div>
