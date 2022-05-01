@@ -32,7 +32,7 @@ export class OrderPageComponent implements OnInit {
     price: number;
   }[] = [];
   foodArray: any[] = [];
-  loading = true;
+  loading = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -158,6 +158,7 @@ export class OrderPageComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     // set the orderDetails
     this.orderDetails = {
       date: Date.now().toString(),
@@ -203,6 +204,7 @@ export class OrderPageComponent implements OnInit {
       .subscribe((res: PaymentResponse) => {
         this.paymentLoading = true;
         this.paymentReason = res.reason;
+        this.loading = false;
         if (res.status === 'FAILED') {
           this.paymentError = true;
           // this.paymentSuccess = false;
