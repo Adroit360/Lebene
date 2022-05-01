@@ -153,6 +153,7 @@ export class OrderPageComponent implements OnInit {
       return;
     }
     if (this.orderForm.invalid || this.invalidLocation) {
+      window.scroll(0, 0);
       return;
     }
 
