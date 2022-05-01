@@ -33,7 +33,7 @@ export class OrderPageComponent implements OnInit {
   }[] = [];
   foodArray: any[] = [];
   loading = false;
-  isValidLocation = true;
+  isValidLocation = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
