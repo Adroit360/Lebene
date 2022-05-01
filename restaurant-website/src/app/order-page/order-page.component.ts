@@ -33,6 +33,7 @@ export class OrderPageComponent implements OnInit {
   }[] = [];
   foodArray: any[] = [];
   loading = false;
+  isValidLocation = true;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -153,8 +154,13 @@ export class OrderPageComponent implements OnInit {
     if (this.orderForm.value.robot) {
       return;
     }
-    if (this.orderForm.invalid || this.invalidLocation) {
+    if (this.orderForm.invalid) {
       window.scroll(0, 0);
+      return;
+    }
+
+    if (this.invalidLocation) {
+      this.isValidLocation = true;
       return;
     }
 
@@ -372,5 +378,10 @@ export class OrderPageComponent implements OnInit {
       .toFixed(2);
 
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+  }
+
+  onCloseLocationModal() {
+    window.scroll(0, 0);
+    this.isValidLocation = false;
   }
 }

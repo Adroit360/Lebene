@@ -16,6 +16,18 @@
 </div>
 <!--END POPUP MODAL-->
 
+<!--Location-->
+<div class="modal" *ngIf="isValidLocation">
+  <div class="popup center">
+    <div class="description">Please select a valid location</div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onCloseLocationModal()">
+        Dismiss
+      </button>
+    </div>
+  </div>
+</div>
+
 <!--POPUP MODAL-->
 <div class="modal" *ngIf="addAnotherItemModal">
   <div style="max-height: calc(100vh - 4rem)" class="popup center">
