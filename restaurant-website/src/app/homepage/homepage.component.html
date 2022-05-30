@@ -1,21 +1,31 @@
 <main class="container">
-  <nav class="navbar">
-    <div class="navbar__logo">
-      <img src="../../assets/salad.png" alt="company logo" />
+  <nav class="nav-container">
+    <div class="navbar">
+      <div class="navbar__logo">
+        <img src="../../assets/salad.png" alt="company logo" />
+      </div>
+      <div class="navbar__links">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <!-- <li><a href="#">Contact Us</a></li> -->
+        </ul>
+      </div>
+      <div class="navbar__right">
+        <a href="#menu">
+          <button class="navbar__right__button">Order now</button>
+        </a>
+      </div>
     </div>
-    <div class="navbar__links">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <!-- <li><a href="#">Contact Us</a></li> -->
-      </ul>
-    </div>
-    <div class="navbar__right">
-      <a href="#menu">
-        <button class="navbar__right__button">Order now</button>
-      </a>
+    <div class="momo__error" *ngIf="momoError">
+      <div class="info">
+        <span class="material-icons"> info </span>
+        <p>{{ momoErrorMessage }}</p>
+      </div>
+      <!-- <span class="material-icons close" (click)="onClose()"> close </span> -->
     </div>
   </nav>
+
   <div class="closingTime__error" *ngIf="closingTimeError">
     <div class="info">
       <span class="material-icons"> info </span>

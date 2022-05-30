@@ -25,7 +25,6 @@ export class HomepageComponent implements OnInit {
       .collection('messages')
       .valueChanges();
     this.momoErrorMessage$.subscribe((res) => {
-      console.log(res);
       for (let i = 0; i < res.length; i++) {
         if (
           res[i].type === 'momo-error' &&
