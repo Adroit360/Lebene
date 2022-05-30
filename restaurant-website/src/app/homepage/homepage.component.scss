@@ -49,6 +49,10 @@
   @include snackBar();
   background-color: rgb(215, 69, 69);
 }
+.momo__error {
+  @include snackBar();
+  background-color: rgb(69, 215, 105);
+}
 
 .container {
   height: 100vh;
@@ -251,8 +255,6 @@
         text-transform: uppercase;
         padding: 1rem 0rem;
       }
-
-      
     }
   }
 }

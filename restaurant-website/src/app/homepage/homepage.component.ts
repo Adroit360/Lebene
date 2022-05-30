@@ -31,6 +31,8 @@ export class HomepageComponent implements OnInit {
   };
   closingTimeError = false;
   subscription: Subscription = new Subscription();
+  momoErrorMessage = '';
+  momoError = true;
 
   ngOnInit(): void {
     // this.breakTime = this.socketService.getClosingTime();
