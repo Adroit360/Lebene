@@ -87,14 +87,23 @@
 </div>
 <!--END PAYMENT FAILED MODAL-->
 <div class="form-container">
-  <nav class="navbar">
-    <div class="navbar__logo">
-      <img src="../../assets/salad.png" alt="company logo" />
+  <nav class="nav-container">
+    <div class="navbar">
+      <div class="navbar__logo">
+        <img src="../../assets/salad.png" alt="company logo" />
+      </div>
+      <div class="navbar__links">
+        <ul>
+          <li><a routerLink="/">Home</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="navbar__links">
-      <ul>
-        <li><a routerLink="/">Home</a></li>
-      </ul>
+    <div class="momo__error" *ngIf="momoError">
+      <div class="info">
+        <span class="material-icons"> info </span>
+        <p>{{ momoErrorMessage }}</p>
+      </div>
+      <!-- <span class="material-icons close" (click)="onClose()"> close </span> -->
     </div>
   </nav>
 
@@ -117,6 +126,7 @@
       <div class="loader"></div>
       <p>{{ paymentReason }}</p>
     </div> -->
+
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <h1 class="form__title">Place order</h1>
       <div class="form__container">

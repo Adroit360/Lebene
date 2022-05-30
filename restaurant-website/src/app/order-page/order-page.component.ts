@@ -34,6 +34,9 @@ export class OrderPageComponent implements OnInit {
   foodArray: any[] = [];
   loading = false;
   isValidLocation = false;
+  momoErrorMessage$: Observable<any>;
+  momoErrorMessage = '';
+  momoError = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -44,6 +47,22 @@ export class OrderPageComponent implements OnInit {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
     // this.socket = io('http://localhost:8000/');
     this.foodArray = this.socketService.getAllFoods();
+    this.momoErrorMessage$ = this.firestore
+      .collection('messages')
+      .valueChanges();
+    this.momoErrorMessage$.subscribe((res) => {
+      console.log(res);
+      for (let i = 0; i < res.length; i++) {
+        if (
+          res[i].type === 'momo-error' &&
+          res[i].message !== '' &&
+          res[i].message !== null
+        ) {
+          this.momoErrorMessage = res[i].message;
+          this.momoError = true;
+        }
+      }
+    });
   }
 
   orderForm = new FormGroup({
