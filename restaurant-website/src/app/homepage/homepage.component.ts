@@ -2,8 +2,9 @@ import { SocketService } from './../services/socket-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { io } from 'socket.io-client';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-homepage',
@@ -12,12 +13,31 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
+  momoErrorMessage$: Observable<any>;
   constructor(
     private router: Router,
     private socketService: SocketService,
-    private http: HttpClient
+    private http: HttpClient,
+    private firestore: AngularFirestore
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
+    this.momoErrorMessage$ = this.firestore
+      .collection('messages')
+      .valueChanges();
+    this.momoErrorMessage$.subscribe((res) => {
+      console.log(res);
+      for (let i = 0; i < res.length; i++) {
+        if (
+          res[i].type === 'momo-error' &&
+          res[i].message !== '' &&
+          res[i].message !== null
+        ) {
+          this.momoErrorMessage = res[i].message;
+          this.momoError = true;
+        }
+      }
+    });
+
     // this.socket = io('http://localhost:8000/');
   }
 
@@ -32,7 +52,7 @@ export class HomepageComponent implements OnInit {
   closingTimeError = false;
   subscription: Subscription = new Subscription();
   momoErrorMessage = '';
-  momoError = true;
+  momoError = false;
 
   ngOnInit(): void {
     // this.breakTime = this.socketService.getClosingTime();

@@ -52,6 +52,7 @@
 .momo__error {
   @include snackBar();
   background-color: rgb(69, 215, 105);
+  color: #000000;
 }
 
 .container {
