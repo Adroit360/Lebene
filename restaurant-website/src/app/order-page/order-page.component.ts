@@ -89,8 +89,8 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  // url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  url = 'http://localhost:8000/paystack/payment';
+  url = 'https://restaurant-payment-backend.herokuapp.com/paystack/payment';
+  //url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;
   paymentSuccess = false;
@@ -244,8 +244,8 @@ export class OrderPageComponent implements OnInit {
     //     }
     //   });
     const body = {
-      amount: this.totalPrice * 100,
-      // amount: 0.03 * 100,
+      //amount: this.totalPrice * 100,
+      amount: 0.01 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
