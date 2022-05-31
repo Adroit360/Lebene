@@ -89,8 +89,8 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  // url = 'http://localhost:8000/api/payment';
+  // url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
+  url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;
   paymentSuccess = false;
