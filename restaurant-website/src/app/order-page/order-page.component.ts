@@ -17,6 +17,7 @@ import { io } from 'socket.io-client';
 import { PaymentResponse, Order, Food } from '../models/interface';
 import { v4 as uuidv4 } from 'uuid';
 import { cities } from '../models/accra';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-order-page',
@@ -37,12 +38,15 @@ export class OrderPageComponent implements OnInit {
   momoErrorMessage$: Observable<any>;
   momoErrorMessage = '';
   momoError = false;
+  payStackUrl: any;
+  payStackModal = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
     private http: HttpClient,
     private socketService: SocketService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public domSanitizer: DomSanitizer
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
     // this.socket = io('http://localhost:8000/');
@@ -213,31 +217,51 @@ export class OrderPageComponent implements OnInit {
       }),
     };
 
+    // const body = {
+    //   amount: this.totalPrice,
+    //   paymentoption: this.getPhoneNetWork(this.orderForm.value.phoneNumber),
+    //   walletnumber: this.FormatGhanaianPhoneNumber(
+    //     this.orderForm.value.phoneNumber
+    //   ),
+    //   clientId: this.clientTransactionId,
+    //   orderDetails: this.orderDetails,
+    // };
+
+    // this.http
+    //   .post<PaymentResponse>(this.url, body, httpOptions)
+    //   .subscribe((res: PaymentResponse) => {
+    //     this.paymentLoading = true;
+    //     this.paymentReason = res.reason;
+    //     this.loading = false;
+    //     if (res.status === 'FAILED') {
+    //       this.paymentError = true;
+    //       // this.paymentSuccess = false;
+    //       this.paymentLoading = false;
+    //       this.error = res.reason;
+    //       setTimeout(() => {
+    //         this.paymentError = false;
+    //       }, 4000);
+    //     }
+    //   });
     const body = {
-      amount: this.totalPrice,
-      paymentoption: this.getPhoneNetWork(this.orderForm.value.phoneNumber),
-      walletnumber: this.FormatGhanaianPhoneNumber(
-        this.orderForm.value.phoneNumber
-      ),
+      amount: this.totalPrice * 100,
+      // amount: 0.03 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
-
+    this.paymentLoading = true;
     this.http
       .post<PaymentResponse>(this.url, body, httpOptions)
-      .subscribe((res: PaymentResponse) => {
-        this.paymentLoading = true;
-        this.paymentReason = res.reason;
-        this.loading = false;
-        if (res.status === 'FAILED') {
-          this.paymentError = true;
-          // this.paymentSuccess = false;
-          this.paymentLoading = false;
-          this.error = res.reason;
-          setTimeout(() => {
-            this.paymentError = false;
-          }, 4000);
+      .subscribe((res: any) => {
+        this.paymentLoading = false;
+        if (res.error) {
+          console.log(res.error);
+          return;
         }
+        this.payStackUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+          res.auth_url
+        );
+        this.payStackModal = true;
       });
   }
 
@@ -348,8 +372,12 @@ export class OrderPageComponent implements OnInit {
     return deliveryFee + parseInt(priceOfFood);
     // return 0.01;
   }
+  // onCloseModal(): void {
+  //   this.modalOpen = false;
+  //   this.router.navigate(['/']);
+  // }
   onCloseModal(): void {
-    this.modalOpen = false;
+    this.payStackModal = false;
     this.router.navigate(['/']);
   }
 

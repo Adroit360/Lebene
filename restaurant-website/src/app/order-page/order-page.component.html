@@ -86,6 +86,20 @@
   </div>
 </div>
 <!--END PAYMENT FAILED MODAL-->
+<!--PAYSTACK POPUP-->
+<div class="modal payment__error2" *ngIf="payStackModal">
+  <div class="popup center">
+    <div class="closepaystackModal" (click)="onCloseModal()">
+      <span class="material-icons"> cancel </span>
+    </div>
+    <iframe
+      *ngIf="payStackUrl"
+      [src]="payStackUrl"
+      title="description"
+      class="paystack-popup"
+    ></iframe>
+  </div>
+</div>
 <div class="form-container">
   <nav class="nav-container">
     <div class="navbar">
