@@ -54,30 +54,16 @@
 </div>
 <!--END POPUP MODAL-->
 
-<!---PAYMENT RESPONSE MODAL-->
-<div class="modal payment__loading2" *ngIf="paymentLoading">
-  <div class="popup center">
-    <div class="description">
-      {{ paymentReason }}
-    </div>
-    <div class="icon">
-      <div class="loader"></div>
-    </div>
-  </div>
-</div>
-<!---END PAYMENT RESPONSE MODAL-->
 <!--PAYMENT FAILED MODAL-->
-<div class="modal payment__error2" *ngIf="paymentError">
-  <div class="popup center">
+<div class="modal" *ngIf="paymentError">
+  <div class="popup-payment center">
     <div class="icon">
       <span class="material-icons"> info </span>
     </div>
     <div class="title">Error!!</div>
     <div class="description">
-      <p>{{ error }}</p>
       <p class="description-info">
-        If you are using MTN, please dial *170#, select my approvals and approve
-        the payment. Your order will be successful👌
+        An unexpected error occurred. Please try again later.
       </p>
     </div>
     <div class="dismiss-btn">

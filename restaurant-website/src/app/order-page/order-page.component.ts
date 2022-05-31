@@ -249,20 +249,22 @@ export class OrderPageComponent implements OnInit {
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
-    this.paymentLoading = true;
-    this.http
-      .post<PaymentResponse>(this.url, body, httpOptions)
-      .subscribe((res: any) => {
+    this.http.post<PaymentResponse>(this.url, body, httpOptions).subscribe(
+      (res: any) => {
         this.paymentLoading = false;
         if (res.error) {
-          console.log(res.error);
-          return;
+          this.paymentError = true;
         }
         this.payStackUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
           res.auth_url
         );
         this.payStackModal = true;
-      });
+      },
+      (error) => {
+        this.paymentError = true;
+        this.loading = false;
+      }
+    );
   }
 
   validateOrder(orderDetails: OrderDetails) {
@@ -323,6 +325,7 @@ export class OrderPageComponent implements OnInit {
 
   onClose(): void {
     this.paymentError = false;
+    this.loading = false;
     // this.paymentSuccess = false;
   }
 
