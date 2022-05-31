@@ -244,8 +244,8 @@ export class OrderPageComponent implements OnInit {
     //     }
     //   });
     const body = {
-      //amount: this.totalPrice * 100,
-      amount: 0.01 * 100,
+      amount: this.totalPrice * 100,
+      //amount: 0.03 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
