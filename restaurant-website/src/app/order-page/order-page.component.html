@@ -28,6 +28,18 @@
   </div>
 </div>
 
+<!--Location-->
+<div class="modal" *ngIf="isValidPacks">
+  <div class="popup center">
+    <div class="description">Please add a valid quantity to the food</div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onCloseLocationModal()">
+        Dismiss
+      </button>
+    </div>
+  </div>
+</div>
+
 <!--POPUP MODAL-->
 <div class="modal" *ngIf="addAnotherItemModal">
   <div style="max-height: calc(100vh - 4rem)" class="popup center">
@@ -242,13 +254,12 @@
               (keyup)="calculateAmount($event)"
               [ngClass]="{ 'is-invalid': !item.quantity }"
             />
-          </div>
-
-          <div
-            *ngIf="submitted && f['numberOfPacks'].errors"
-            class="invalid-feedback"
-          >
-            <div>Enter a valid number</div>
+            <div
+              *ngIf="submitted && f['numberOfPacks'].errors && !item.quantity"
+              class="invalid-feedback"
+            >
+              <div>Enter a valid number</div>
+            </div>
           </div>
         </div>
         <div class="form__control">

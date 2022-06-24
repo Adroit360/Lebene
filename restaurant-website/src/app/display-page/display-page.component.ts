@@ -25,10 +25,13 @@ export class DisplayPageComponent implements OnInit {
   isFirstTime = true;
   itemLength: number = 0;
   subscriptions: Subscription[] = [];
+  totalAmount = 0;
+  startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  endDate = new Date('4/20/2022').setHours(23, 59, 59, 999);
+  totalCount = 0;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
     let itemSubs = this.item$.subscribe((res) => {
-
       if (!this.isFirstTime && res.length > this.itemLength)
         this.notificationAudio.play();
       else this.isFirstTime = false;

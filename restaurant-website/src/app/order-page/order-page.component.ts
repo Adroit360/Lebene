@@ -40,6 +40,7 @@ export class OrderPageComponent implements OnInit {
   momoError = false;
   payStackUrl: any;
   payStackModal = false;
+  isValidPacks = false;
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -77,7 +78,7 @@ export class OrderPageComponent implements OnInit {
     location: new FormControl('', Validators.required),
     // deliveryFee: new FormControl(''),
     // amount: new FormControl(0, Validators.required),
-    numberOfPacks: new FormControl(''),
+    numberOfPacks: new FormControl('', Validators.required),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
     robot: new FormControl(''),
@@ -172,6 +173,14 @@ export class OrderPageComponent implements OnInit {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
+
+    console.log(this.orderForm.value);
+    console.log(this.foodsOrdered);
+    this.foodsOrdered.forEach((food) => {
+      if (!food.quantity) {
+        this.orderForm.invalid === true;
+      }
+    });
 
     if (this.orderForm.value.robot) {
       return;
