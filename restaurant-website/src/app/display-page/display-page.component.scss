@@ -122,10 +122,8 @@
 .card {
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
   min-height: 3rem;
   word-wrap: break-word;
   background-color: #fff;
@@ -135,6 +133,11 @@
   box-shadow: 0 3px 3px -1px #0a16461a, 0 0 1px #0a16460f;
   padding: 1rem 2rem;
 }
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 .card__heading {
   color: #6d7d95;
   font-size: 1rem;
@@ -143,4 +146,18 @@
   font-size: calc(1.2625rem + 0.15vw);
   line-height: 1.3;
   color: #16192c;
+}
+
+.card-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #ff579a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-size: 1.8rem;
+    color: white;
+  }
 }
