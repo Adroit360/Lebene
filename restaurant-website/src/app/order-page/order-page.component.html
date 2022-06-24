@@ -19,7 +19,7 @@
 <!--Location-->
 <div class="modal" *ngIf="isValidLocation">
   <div class="popup-payment center">
-    <div class="description">Please select a valid location</div>
+    <div class="description">{{ errorMessage }}</div>
     <div class="dismiss-btn">
       <button class="dismiss-popup-btn" (click)="onCloseLocationModal()">
         Dismiss

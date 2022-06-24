@@ -34,13 +34,14 @@ export class OrderPageComponent implements OnInit {
   }[] = [];
   foodArray: any[] = [];
   loading = false;
-  isValidLocation = true;
+  isValidLocation = false;
   momoErrorMessage$: Observable<any>;
   momoErrorMessage = '';
   momoError = false;
   payStackUrl: any;
   payStackModal = false;
   isValidPacks = false;
+  errorMessage = '';
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -174,12 +175,11 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
-    console.log(this.orderForm.value);
-    console.log(this.foodsOrdered);
     this.foodsOrdered.forEach((food) => {
       if (!food.quantity) {
         this.orderForm.invalid === true;
-        this.isValidPacks = true;
+        this.isValidLocation = true;
+        this.errorMessage = 'Please add a valid quantity to the food';
       }
     });
 
@@ -187,8 +187,9 @@ export class OrderPageComponent implements OnInit {
       return;
     }
 
-    if (this.invalidLocation) {
+    if (this.invalidLocation || this.f['location'].errors) {
       this.isValidLocation = true;
+      this.errorMessage = 'Please select a valid location';
       return;
     }
 
