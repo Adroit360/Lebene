@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { Observable, Subscription, tap } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
 import { OrderType } from '../single-order/single-order.component';
@@ -19,7 +18,7 @@ interface Order {
   styleUrls: ['./display-page.component.scss'],
 })
 export class DisplayPageComponent implements OnInit {
-  item$: Observable<OrderDetailsAdmin[]>;
+  //item$: Observable<OrderDetailsAdmin[]>;
   orders$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
@@ -28,16 +27,17 @@ export class DisplayPageComponent implements OnInit {
   subscriptions: Subscription[] = [];
   totalAmount = 0;
   totalOrders = 0;
+  amountTobePayed = 0;
   startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
   endDate = new Date(
     new Date().getFullYear(),
     new Date().getMonth() + 1,
     0
   ).setHours(23, 59, 59, 999);
+  foodOrdered: OrderDetailsAdmin[] = [];
   constructor(private firestore: AngularFirestore) {
-    this.item$ = this.exampleGetCollection();
     this.orders$ = this.onGetTotalOrdersCollection();
-    let itemSubs = this.item$.subscribe((res) => {
+    let itemSubs = this.orders$.subscribe((res) => {
       if (!this.isFirstTime && res.length > this.itemLength)
         this.notificationAudio.play();
       else this.isFirstTime = false;
@@ -54,11 +54,14 @@ export class DisplayPageComponent implements OnInit {
           parseInt(item.date) >= this.startDate.getTime() &&
           parseInt(item.date) <= this.endDate
         ) {
+          if (!item.completed) {
+            this.foodOrdered.push(item);
+          }
           this.totalAmount += parseFloat(item.priceOfFood);
           this.totalOrders += 1;
         }
       });
-      //this.totalAmount = this.totalAmount * 0.14;
+      this.amountTobePayed = this.totalAmount * 0.86; // calculate 14% of the total food revenue
     });
 
     this.subscriptions.push(itemSubs);

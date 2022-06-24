@@ -141,6 +141,10 @@
 .card__heading {
   color: #6d7d95;
   font-size: 1rem;
+  text-transform: capitalize;
+  @media screen and (max-width: 500px) {
+    font-size: 0.75rem;
+  }
 }
 .card__quantity {
   font-size: calc(1.2625rem + 0.15vw);
@@ -159,5 +163,14 @@
   span {
     font-size: 1.8rem;
     color: white;
+  }
+  text-transform: capitalize;
+  @media screen and (max-width: 500px) {
+    width: 2rem;
+    height: 2rem;
+    span {
+      font-size: 1rem;
+      color: white;
+    }
   }
 }
