@@ -18,7 +18,6 @@ interface Order {
   styleUrls: ['./display-page.component.scss'],
 })
 export class DisplayPageComponent implements OnInit {
-  //item$: Observable<OrderDetailsAdmin[]>;
   orders$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
@@ -49,6 +48,7 @@ export class DisplayPageComponent implements OnInit {
     this.orders$.subscribe((items) => {
       this.totalAmount = 0;
       this.totalOrders = 0;
+      this.foodOrdered = [];
       items.forEach((item) => {
         if (
           parseInt(item.date) >= this.startDate.getTime() &&
