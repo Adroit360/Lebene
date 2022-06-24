@@ -20,23 +20,45 @@ interface Order {
 })
 export class DisplayPageComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
+  orders$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
   isFirstTime = true;
   itemLength: number = 0;
   subscriptions: Subscription[] = [];
   totalAmount = 0;
+  totalOrders = 0;
   startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-  endDate = new Date('4/20/2022').setHours(23, 59, 59, 999);
-  totalCount = 0;
+  endDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
+  ).setHours(23, 59, 59, 999);
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
+    this.orders$ = this.onGetTotalOrdersCollection();
     let itemSubs = this.item$.subscribe((res) => {
       if (!this.isFirstTime && res.length > this.itemLength)
         this.notificationAudio.play();
       else this.isFirstTime = false;
 
       this.itemLength = res.length;
+    });
+
+    // get the total orders and total amount
+    this.orders$.subscribe((items) => {
+      this.totalAmount = 0;
+      this.totalOrders = 0;
+      items.forEach((item) => {
+        if (
+          parseInt(item.date) >= this.startDate.getTime() &&
+          parseInt(item.date) <= this.endDate
+        ) {
+          this.totalAmount += parseFloat(item.priceOfFood);
+          this.totalOrders += 1;
+        }
+      });
+      //this.totalAmount = this.totalAmount * 0.14;
     });
 
     this.subscriptions.push(itemSubs);
@@ -59,6 +81,14 @@ export class DisplayPageComponent implements OnInit {
           .where('completed', '==', false)
           .where('orderPaid', '==', true)
           .orderBy('date', 'desc')
+      )
+      .valueChanges({ idField: 'Id' });
+  }
+
+  onGetTotalOrdersCollection(): Observable<any> {
+    return this.firestore
+      .collection('orders', (orders) =>
+        orders.where('orderPaid', '==', true).orderBy('date', 'desc')
       )
       .valueChanges({ idField: 'Id' });
   }
