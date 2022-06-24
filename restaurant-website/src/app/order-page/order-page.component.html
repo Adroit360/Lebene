@@ -18,10 +18,10 @@
 
 <!--Location-->
 <div class="modal" *ngIf="isValidLocation">
-  <div class="popup center">
+  <div class="popup-payment center">
     <div class="description">Please select a valid location</div>
     <div class="dismiss-btn">
-      <button id="dismiss-popup-btn" (click)="onCloseLocationModal()">
+      <button class="dismiss-popup-btn" (click)="onCloseLocationModal()">
         Dismiss
       </button>
     </div>
@@ -30,7 +30,7 @@
 
 <!--Location-->
 <div class="modal" *ngIf="isValidPacks">
-  <div class="popup center">
+  <div class="popup-payment center">
     <div class="description">Please add a valid quantity to the food</div>
     <div class="dismiss-btn">
       <button id="dismiss-popup-btn" (click)="onCloseLocationModal()">

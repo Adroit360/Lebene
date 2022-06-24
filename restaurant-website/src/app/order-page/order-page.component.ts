@@ -34,7 +34,7 @@ export class OrderPageComponent implements OnInit {
   }[] = [];
   foodArray: any[] = [];
   loading = false;
-  isValidLocation = false;
+  isValidLocation = true;
   momoErrorMessage$: Observable<any>;
   momoErrorMessage = '';
   momoError = false;
@@ -179,19 +179,21 @@ export class OrderPageComponent implements OnInit {
     this.foodsOrdered.forEach((food) => {
       if (!food.quantity) {
         this.orderForm.invalid === true;
+        this.isValidPacks = true;
       }
     });
 
     if (this.orderForm.value.robot) {
       return;
     }
-    if (this.orderForm.invalid) {
-      window.scroll(0, 0);
-      return;
-    }
 
     if (this.invalidLocation) {
       this.isValidLocation = true;
+      return;
+    }
+
+    if (this.orderForm.invalid) {
+      window.scroll(0, 0);
       return;
     }
 
@@ -441,5 +443,6 @@ export class OrderPageComponent implements OnInit {
   onCloseLocationModal() {
     window.scroll(0, 0);
     this.isValidLocation = false;
+    this.isValidPacks = false;
   }
 }

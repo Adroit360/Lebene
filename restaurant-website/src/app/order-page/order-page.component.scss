@@ -574,3 +574,14 @@
 .button--standard {
   display: none;
 }
+
+.dismiss-popup-btn {
+  border: none;
+  background: red;
+  padding: 0.5rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
