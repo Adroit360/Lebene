@@ -34,13 +34,12 @@ export class OrderPageComponent implements OnInit {
   }[] = [];
   foodArray: any[] = [];
   loading = false;
-  isValidLocation = false;
+  isValidLocationOrPacks = false;
   momoErrorMessage$: Observable<any>;
   momoErrorMessage = '';
   momoError = false;
   payStackUrl: any;
   payStackModal = false;
-  isValidPacks = false;
   errorMessage = '';
   constructor(
     private router: Router,
@@ -177,9 +176,8 @@ export class OrderPageComponent implements OnInit {
 
     this.foodsOrdered.forEach((food) => {
       if (!food.quantity) {
-        this.orderForm.invalid === true;
-        this.isValidLocation = true;
-        this.errorMessage = 'Please add a valid quantity to the food';
+        this.isValidLocationOrPacks = true;
+        this.errorMessage = 'Please add a number of packs to the food';
       }
     });
 
@@ -188,7 +186,7 @@ export class OrderPageComponent implements OnInit {
     }
 
     if (this.invalidLocation || this.f['location'].errors) {
-      this.isValidLocation = true;
+      this.isValidLocationOrPacks = true;
       this.errorMessage = 'Please select a valid location';
       return;
     }
@@ -198,7 +196,6 @@ export class OrderPageComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
     // set the orderDetails
     this.orderDetails = {
       date: Date.now().toString(),
@@ -220,6 +217,9 @@ export class OrderPageComponent implements OnInit {
 
     let valError = this.validateOrder(this.orderDetails);
     if (valError) {
+      this.isValidLocationOrPacks = true;
+      this.errorMessage = valError;
+      this.orderForm.setErrors({ invalid: true });
       return;
     }
 
@@ -229,32 +229,7 @@ export class OrderPageComponent implements OnInit {
       }),
     };
 
-    // const body = {
-    //   amount: this.totalPrice,
-    //   paymentoption: this.getPhoneNetWork(this.orderForm.value.phoneNumber),
-    //   walletnumber: this.FormatGhanaianPhoneNumber(
-    //     this.orderForm.value.phoneNumber
-    //   ),
-    //   clientId: this.clientTransactionId,
-    //   orderDetails: this.orderDetails,
-    // };
-
-    // this.http
-    //   .post<PaymentResponse>(this.url, body, httpOptions)
-    //   .subscribe((res: PaymentResponse) => {
-    //     this.paymentLoading = true;
-    //     this.paymentReason = res.reason;
-    //     this.loading = false;
-    //     if (res.status === 'FAILED') {
-    //       this.paymentError = true;
-    //       // this.paymentSuccess = false;
-    //       this.paymentLoading = false;
-    //       this.error = res.reason;
-    //       setTimeout(() => {
-    //         this.paymentError = false;
-    //       }, 4000);
-    //     }
-    //   });
+    this.loading = true;
     const body = {
       amount: this.totalPrice * 100,
       //amount: 0.03 * 100,
@@ -443,7 +418,6 @@ export class OrderPageComponent implements OnInit {
 
   onCloseLocationModal() {
     window.scroll(0, 0);
-    this.isValidLocation = false;
-    this.isValidPacks = false;
+    this.isValidLocationOrPacks = false;
   }
 }

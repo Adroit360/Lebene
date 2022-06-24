@@ -17,23 +17,11 @@
 <!--END POPUP MODAL-->
 
 <!--Location-->
-<div class="modal" *ngIf="isValidLocation">
+<div class="modal" *ngIf="isValidLocationOrPacks">
   <div class="popup-payment center">
     <div class="description">{{ errorMessage }}</div>
     <div class="dismiss-btn">
       <button class="dismiss-popup-btn" (click)="onCloseLocationModal()">
-        Dismiss
-      </button>
-    </div>
-  </div>
-</div>
-
-<!--Location-->
-<div class="modal" *ngIf="isValidPacks">
-  <div class="popup-payment center">
-    <div class="description">Please add a valid quantity to the food</div>
-    <div class="dismiss-btn">
-      <button id="dismiss-popup-btn" (click)="onCloseLocationModal()">
         Dismiss
       </button>
     </div>
