@@ -62,7 +62,7 @@ export class DisplayPageComponent implements OnInit {
           this.totalOrders += 1;
         }
       });
-      this.amountTobePayed = this.totalAmount * 0.86; // calculate 14% of the total food revenue
+      this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
     });
 
     this.subscriptions.push(itemSubs);
@@ -75,7 +75,6 @@ export class DisplayPageComponent implements OnInit {
     if (authUserstring) {
       let authUser = JSON.parse(authUserstring);
       this.showOrderDetails = authUser.isAdmin;
-      console.log(this.showOrderDetails);
     }
   }
 
