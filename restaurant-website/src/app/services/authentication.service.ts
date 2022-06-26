@@ -24,7 +24,6 @@ export class AuthenticationService {
       return JSON.parse(authUserstring);
     } else {
       let authUser = await this.afAuth.currentUser;
-      console.log(authUser?.email);
       if (authUser) {
         if (authUser.email === 'ceremoinc99@gmail.com') {
           this.status = { loggedIn: true, isAdmin: true };
