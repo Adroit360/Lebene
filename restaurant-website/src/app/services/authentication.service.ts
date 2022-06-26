@@ -7,6 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticationService {
+  status: { loggedIn: boolean; isAdmin: boolean } = {
+    loggedIn: false,
+    isAdmin: false,
+  };
   constructor(public afAuth: AngularFireAuth) {}
 
   /* Sign in */
@@ -20,11 +24,18 @@ export class AuthenticationService {
       return JSON.parse(authUserstring);
     } else {
       let authUser = await this.afAuth.currentUser;
+      console.log(authUser?.email);
       if (authUser) {
+        let status = {};
         // localStorage.setItem('authUser', JSON.stringify(authUser));
-        const status = { loggedIn: true };
-        localStorage.setItem('authUser', JSON.stringify(status));
-        return status;
+        if (authUser.email === 'ceremoinc99@gmail.com') {
+          this.status = { loggedIn: true, isAdmin: true };
+        } else {
+          this.status = { loggedIn: true, isAdmin: false };
+        }
+
+        localStorage.setItem('authUser', JSON.stringify(this.status));
+        return this.status;
       } else {
         return null;
       }
