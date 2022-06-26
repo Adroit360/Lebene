@@ -22,6 +22,7 @@ export class DisplayPageComponent implements OnInit {
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
   isFirstTime = true;
+  showOrderDetails = false;
   itemLength: number = 0;
   subscriptions: Subscription[] = [];
   totalAmount = 0;
@@ -69,7 +70,14 @@ export class DisplayPageComponent implements OnInit {
 
   success: boolean = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let authUserstring = localStorage.getItem('authUser');
+    if (authUserstring) {
+      let authUser = JSON.parse(authUserstring);
+      this.showOrderDetails = authUser.isAdmin;
+      console.log(this.showOrderDetails);
+    }
+  }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
