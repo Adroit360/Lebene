@@ -22,14 +22,14 @@ export class SidebarComponent implements OnInit {
     private http: HttpClient,
     private activatedRoute: ActivatedRoute
   ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
+    this.socket = io('https://lebenebeansapi.azurewebsites.net/');
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
     // console.log('showFailed', this.showFailed);
   }
 
   ngOnInit(): void {
     this.http
-      .get('https://restaurant-payment-backend.herokuapp.com/')
+      .get('https://lebenebeansapi.azurewebsites.net/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus) {
@@ -64,7 +64,7 @@ export class SidebarComponent implements OnInit {
     };
     this.http
       .post(
-        'https://restaurant-payment-backend.herokuapp.com/api/openOrders',
+        'https://lebenebeansapi.azurewebsites.net/api/openOrders',
         {},
         httpOptions
       )
@@ -80,7 +80,7 @@ export class SidebarComponent implements OnInit {
     };
     this.http
       .post(
-        'https://restaurant-payment-backend.herokuapp.com/api/closeOrders',
+        'https://lebenebeansapi.azurewebsites.net/api/closeOrders',
         {},
         httpOptions
       )

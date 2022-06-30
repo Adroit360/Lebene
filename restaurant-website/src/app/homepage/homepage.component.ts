@@ -20,7 +20,7 @@ export class HomepageComponent implements OnInit {
     private http: HttpClient,
     private firestore: AngularFirestore
   ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
+    this.socket = io('https://lebenebeansapi.azurewebsites.net/');
     this.momoErrorMessage$ = this.firestore
       .collection('messages')
       .valueChanges();
@@ -56,7 +56,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     // this.breakTime = this.socketService.getClosingTime();
     // this.http
-    //   .get('https://restaurant-payment-backend.herokuapp.com/')
+    //   .get('https://lebenebeansapi.azurewebsites.net/')
     //   .subscribe((res: any) => {
     //     this.orderStatus = res.orderStatus;
     //     const currentDate = new Date();
@@ -73,7 +73,7 @@ export class HomepageComponent implements OnInit {
     //   });
 
     this.http
-      .get('https://restaurant-payment-backend.herokuapp.com/')
+      .get('https://lebenebeansapi.azurewebsites.net/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus) {
