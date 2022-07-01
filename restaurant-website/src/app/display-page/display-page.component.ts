@@ -35,6 +35,7 @@ export class DisplayPageComponent implements OnInit {
     0
   ).setHours(23, 59, 59, 999);
   foodOrdered: OrderDetailsAdmin[] = [];
+  customers: { name: string; phoneNumber: string }[] = [];
   constructor(private firestore: AngularFirestore) {
     this.orders$ = this.onGetTotalOrdersCollection();
     let itemSubs = this.orders$.subscribe((res) => {
@@ -51,6 +52,7 @@ export class DisplayPageComponent implements OnInit {
       this.totalOrders = 0;
       this.foodOrdered = [];
       items.forEach((item) => {
+        //this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
         if (
           parseInt(item.date) >= this.startDate.getTime() &&
           parseInt(item.date) <= this.endDate
