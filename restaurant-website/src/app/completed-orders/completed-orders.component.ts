@@ -10,7 +10,7 @@ import { OrderType } from '../single-order/single-order.component';
   styleUrls: ['./completed-orders.component.scss'],
 })
 export class CompletedOrdersComponent implements OnInit {
-  item$: Observable<OrderDetailsAdmin[]>;
+  // item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   numberArray: { name: string; phoneNumber: string }[] = [];
   totalAmount = 0;
@@ -22,7 +22,7 @@ export class CompletedOrdersComponent implements OnInit {
   ).setHours(23, 59, 59, 999);
   totalCount = 0;
   constructor(private firestore: AngularFirestore) {
-    this.item$ = this.GetCompletedOrdersCollection();
+    // this.item$ = this.GetCompletedOrdersCollection();
   }
 
   ngOnInit(): void {

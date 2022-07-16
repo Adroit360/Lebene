@@ -11,7 +11,7 @@ import { OrderType } from '../single-order/single-order.component';
   styleUrls: ['./failed-orders.component.scss'],
 })
 export class FailedOrdersComponent implements OnInit {
-  item$: Observable<OrderDetailsAdmin[]>;
+  // item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   data: any;
   numberArray: { name: string; phoneNumber: string }[] = [];
@@ -23,7 +23,7 @@ export class FailedOrdersComponent implements OnInit {
   ).setHours(23, 59, 59, 999);
 
   constructor(private firestore: AngularFirestore) {
-    this.item$ = this.exampleGetCollection();
+    // this.item$ = this.exampleGetCollection();
     // this.item$.subscribe((items) => {
     //   let TotalAmount = 0;
     //   // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));

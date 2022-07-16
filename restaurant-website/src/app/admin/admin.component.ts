@@ -56,7 +56,7 @@ export class AdminComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private firestore: AngularFirestore
   ) {
-    this.socket = io('https://nikki-foods-api.azurewebsites.net/');
+    this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
 
     this.orders$ = this.onGetTotalOrdersCollection();
