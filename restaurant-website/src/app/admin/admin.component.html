@@ -77,7 +77,7 @@
   </div>
   <div class="display-page">
     <main class="display__container" *ngIf="currentPage === 'orders'">
-      <div class="order-details">
+      <div class="order-details" *ngIf="showOrderDetails">
         <div class="card">
           <div class="card-info">
             <span class="card__heading">Total Orders(This month)</span>

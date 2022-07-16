@@ -94,14 +94,7 @@ export class AdminComponent implements OnInit {
           }
         }
       });
-      this.paidOrders = items.filter(
-        (item) => item.completed === false && item.orderPaid
-      );
-      // console.log(this.paidOrders);
-      // console.log(items);
-
-      // console.log(this.foodOrdered);
-      // this.amountTobePayed = +(this.totalAmount * 0.8).toFixed(2); // calculate 20% of the total food revenue
+      this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
     });
 
     this.subscriptions.push(itemSubs);
@@ -109,6 +102,13 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     // this.router.navigate(['/admin/orders']);
+
+    let authUserstring = localStorage.getItem('authUser');
+    if (authUserstring) {
+      let authUser = JSON.parse(authUserstring);
+      this.showOrderDetails = authUser.isAdmin;
+    }
+
     this.http
       .get('https://lebenebeansapi.azurewebsites.net/')
       .subscribe((res: any) => {
