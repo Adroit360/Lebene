@@ -108,7 +108,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigate(['/admin/orders']);
+    // this.router.navigate(['/admin/orders']);
     this.http
       .get('https://lebenebeansapi.azurewebsites.net/')
       .subscribe((res: any) => {

@@ -16,11 +16,11 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
-    children: [
-      { path: 'orders', component: DisplayPageComponent },
-      { path: 'delivered', component: CompletedOrdersComponent },
-      { path: 'failed', component: FailedOrdersComponent },
-    ],
+    // children: [
+    //   { path: 'orders', component: DisplayPageComponent },
+    //   { path: 'delivered', component: CompletedOrdersComponent },
+    //   { path: 'failed', component: FailedOrdersComponent },
+    // ],
   },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' },
