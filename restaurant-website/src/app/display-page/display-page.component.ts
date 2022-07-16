@@ -90,6 +90,8 @@ export class DisplayPageComponent implements OnInit {
     return this.firestore
       .collection('orders', (orders) =>
         orders
+          .where('date', '>=', this.startDate.getTime().toString())
+          .where('date', '<=', this.endDate.toString())
           .where('completed', '==', false)
           .where('orderPaid', '==', true)
           .orderBy('date', 'desc')

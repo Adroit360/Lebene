@@ -15,6 +15,13 @@ export class FailedOrdersComponent implements OnInit {
   OrderType = OrderType;
   data: any;
   numberArray: { name: string; phoneNumber: string }[] = [];
+  startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  endDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
+  ).setHours(23, 59, 59, 999);
+
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
     // this.item$.subscribe((items) => {
@@ -39,6 +46,8 @@ export class FailedOrdersComponent implements OnInit {
     return this.firestore
       .collection('orders', (orders) =>
         orders
+          .where('date', '>=', this.startDate.getTime().toString())
+          .where('date', '<=', this.endDate.toString())
           .where('completed', '==', false)
           .where('orderPaid', '==', false)
           .orderBy('date', 'desc')
