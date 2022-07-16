@@ -107,7 +107,7 @@ export class AdminComponent implements OnInit {
       .get('https://restaurant-payment-backend.herokuapp.com/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
-        if (this.orderStatus) {
+        if (this.orderStatus || this.day === 6) {
           this.closeOrder = true;
         }
       });
@@ -143,6 +143,9 @@ export class AdminComponent implements OnInit {
   }
 
   onOpenOrders() {
+    if (this.day === 6) {
+      return;
+    }
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
