@@ -110,7 +110,7 @@ export class AdminComponent implements OnInit {
     }
 
     this.http
-      .get('https://lebenebeansapi.azurewebsites.net/')
+      .get('https://restaurant-payment-backend.herokuapp.com/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus) {
@@ -156,7 +156,7 @@ export class AdminComponent implements OnInit {
     };
     this.http
       .post(
-        'https://lebenebeansapi.azurewebsites.net/api/openOrders',
+        'https://restaurant-payment-backend.herokuapp.com/api/openOrders',
         {},
         httpOptions
       )
@@ -172,7 +172,7 @@ export class AdminComponent implements OnInit {
     };
     this.http
       .post(
-        'https://lebenebeansapi.azurewebsites.net/api/closeOrders',
+        'https://restaurant-payment-backend.herokuapp.com/api/closeOrders',
         {},
         httpOptions
       )
