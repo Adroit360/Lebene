@@ -134,7 +134,7 @@ export class AdminComponent implements OnInit {
         orders
           .where('date', '>=', this.startDate.getTime().toString())
           .where('date', '<=', this.endDate.toString())
-          .where('orderPaid', '==', true)
+          .orderBy('date', 'desc')
       )
       .valueChanges({ idField: 'Id' });
   }
