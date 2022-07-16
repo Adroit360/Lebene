@@ -70,28 +70,22 @@ export class AdminComponent implements OnInit {
 
     // get the total orders and total amount
     this.orders$.subscribe((items) => {
-      console.log(items);
       this.totalAmount = 0;
       this.totalOrders = 0;
       this.foodOrdered = [];
       this.deliveredOrders = [];
       this.failedOrders = [];
       items.forEach((item) => {
-        if (
-          parseInt(item.date) >= this.startDate.getTime() &&
-          parseInt(item.date) <= this.endDate
-        ) {
-          if (item.orderPaid) {
-            if (!item.completed) {
-              this.foodOrdered.push(item);
-            } else {
-              this.deliveredOrders.push(item);
-            }
-            this.totalAmount += parseFloat(item.priceOfFood);
-            this.totalOrders += 1;
+        if (item.orderPaid) {
+          if (!item.completed) {
+            this.foodOrdered.push(item);
           } else {
-            this.failedOrders.push(item);
+            this.deliveredOrders.push(item);
           }
+          this.totalAmount += parseFloat(item.priceOfFood);
+          this.totalOrders += 1;
+        } else {
+          this.failedOrders.push(item);
         }
       });
       this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
