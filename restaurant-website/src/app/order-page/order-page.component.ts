@@ -49,7 +49,7 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://lebenebeansapi.azurewebsites.net');
+    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
     // this.socket = io('http://localhost:8000/');
     this.foodArray = this.socketService.getAllFoods();
     this.momoErrorMessage$ = this.firestore
@@ -90,7 +90,7 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://lebenebeansapi.azurewebsites.net/paystack/payment';
+  url = 'https://restaurant-payment-backend.herokuapp.com/paystack/payment';
   //url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;

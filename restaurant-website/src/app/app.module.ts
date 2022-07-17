@@ -38,6 +38,7 @@ import { IsArrayPipe } from 'src/pipes/is-array.pipe';
 import { KeysPipe } from 'src/pipes/keys.pipe';
 import { SingleOrderComponent } from './single-order/single-order.component';
 import { FooterComponent } from './footer/footer.component';
+import { AvatarComponent } from './avatar/avatar.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { FooterComponent } from './footer/footer.component';
     IsArrayPipe,
     KeysPipe,
     FooterComponent,
+    AvatarComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,7 +18,7 @@ interface Order {
   styleUrls: ['./display-page.component.scss'],
 })
 export class DisplayPageComponent implements OnInit {
-  orders$: Observable<OrderDetailsAdmin[]>;
+  // orders$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
   isFirstTime = true;
@@ -37,37 +37,34 @@ export class DisplayPageComponent implements OnInit {
   foodOrdered: OrderDetailsAdmin[] = [];
   customers: { name: string; phoneNumber: string }[] = [];
   constructor(private firestore: AngularFirestore) {
-    this.orders$ = this.onGetTotalOrdersCollection();
-    let itemSubs = this.orders$.subscribe((res) => {
-      if (!this.isFirstTime && res.length > this.itemLength)
-        this.notificationAudio.play();
-      else this.isFirstTime = false;
-
-      this.itemLength = res.length;
-    });
-
+    // this.orders$ = this.onGetTotalOrdersCollection();
+    // let itemSubs = this.orders$.subscribe((res) => {
+    //   if (!this.isFirstTime && res.length > this.itemLength)
+    //     this.notificationAudio.play();
+    //   else this.isFirstTime = false;
+    //   this.itemLength = res.length;
+    // });
     // get the total orders and total amount
-    this.orders$.subscribe((items) => {
-      this.totalAmount = 0;
-      this.totalOrders = 0;
-      this.foodOrdered = [];
-      items.forEach((item) => {
-        //this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
-        if (
-          parseInt(item.date) >= this.startDate.getTime() &&
-          parseInt(item.date) <= this.endDate
-        ) {
-          if (!item.completed) {
-            this.foodOrdered.push(item);
-          }
-          this.totalAmount += parseFloat(item.priceOfFood);
-          this.totalOrders += 1;
-        }
-      });
-      this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
-    });
-
-    this.subscriptions.push(itemSubs);
+    // this.orders$.subscribe((items) => {
+    //   this.totalAmount = 0;
+    //   this.totalOrders = 0;
+    //   this.foodOrdered = [];
+    //   items.forEach((item) => {
+    //     //this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
+    //     if (
+    //       parseInt(item.date) >= this.startDate.getTime() &&
+    //       parseInt(item.date) <= this.endDate
+    //     ) {
+    //       if (!item.completed) {
+    //         this.foodOrdered.push(item);
+    //       }
+    //       this.totalAmount += parseFloat(item.priceOfFood);
+    //       this.totalOrders += 1;
+    //     }
+    //   });
+    //   this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
+    // });
+    // this.subscriptions.push(itemSubs);
   }
 
   success: boolean = false;
@@ -90,6 +87,8 @@ export class DisplayPageComponent implements OnInit {
     return this.firestore
       .collection('orders', (orders) =>
         orders
+          .where('date', '>=', this.startDate.getTime().toString())
+          .where('date', '<=', this.endDate.toString())
           .where('completed', '==', false)
           .where('orderPaid', '==', true)
           .orderBy('date', 'desc')
