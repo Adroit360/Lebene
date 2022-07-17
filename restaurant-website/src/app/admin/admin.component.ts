@@ -95,8 +95,6 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.router.navigate(['/admin/orders']);
-
     let authUserstring = localStorage.getItem('authUser');
     if (authUserstring) {
       let authUser = JSON.parse(authUserstring);
