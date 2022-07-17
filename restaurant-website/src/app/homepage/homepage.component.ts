@@ -52,6 +52,7 @@ export class HomepageComponent implements OnInit {
   subscription: Subscription = new Subscription();
   momoErrorMessage = '';
   momoError = false;
+  day = new Date().getDay();
 
   ngOnInit(): void {
     // this.breakTime = this.socketService.getClosingTime();
@@ -76,7 +77,7 @@ export class HomepageComponent implements OnInit {
       .get('https://restaurant-payment-backend.herokuapp.com/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
-        if (this.orderStatus) {
+        if (this.orderStatus || this.day === 0) {
           this.closingTimeError = true;
         } else {
           this.closingTimeError = false;
