@@ -77,7 +77,7 @@ export class HomepageComponent implements OnInit {
   }
 
   onProceedToOrderPage(id: number): void {
-    if (this.orderStatus) {
+    if (this.orderStatus || this.day === 0) {
       this.closingTimeError = true;
     } else {
       this.closingTimeError = false;
