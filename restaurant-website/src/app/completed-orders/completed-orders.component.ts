@@ -10,32 +10,19 @@ import { OrderType } from '../single-order/single-order.component';
   styleUrls: ['./completed-orders.component.scss'],
 })
 export class CompletedOrdersComponent implements OnInit {
-  item$: Observable<OrderDetailsAdmin[]>;
+  // item$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   numberArray: { name: string; phoneNumber: string }[] = [];
   totalAmount = 0;
-  startDate = new Date('3/29/2022');
-  endDate = new Date('4/20/2022').setHours(23, 59, 59, 999);
+  startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  endDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
+  ).setHours(23, 59, 59, 999);
   totalCount = 0;
   constructor(private firestore: AngularFirestore) {
-    this.item$ = this.GetCompletedOrdersCollection();
-    this.item$.subscribe((items) => {
-      // items.forEach((item) => (TotalAmount += parseFloat(item.amount)));
-      // console.log('total : ', TotalAmount);
-      //   items.forEach((item) => {
-      //     if (
-      //       parseInt(item.date) >= this.startDate.getTime() &&
-      //       parseInt(item.date) <= this.endDate
-      //     ) {
-      //       this.totalAmount += parseFloat(item.amount);
-      //       this.totalCount += 1;
-      //     }
-      //   });
-      //   console.log({
-      //     totalAmount: this.totalAmount,
-      //     totalCount: this.totalCount,
-      //   });
-    });
+    // this.item$ = this.GetCompletedOrdersCollection();
   }
 
   ngOnInit(): void {
@@ -48,7 +35,11 @@ export class CompletedOrdersComponent implements OnInit {
   GetCompletedOrdersCollection(): Observable<any> {
     return this.firestore
       .collection('orders', (orders) =>
-        orders.where('completed', '==', true).orderBy('date', 'desc')
+        orders
+          .where('date', '>=', this.startDate.getTime().toString())
+          .where('date', '<=', this.endDate.toString())
+          .where('completed', '==', true)
+          .orderBy('date', 'desc')
       )
       .valueChanges({ idField: 'Id' });
   }
