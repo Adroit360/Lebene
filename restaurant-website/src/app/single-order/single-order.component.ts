@@ -23,6 +23,7 @@ export class SingleOrderComponent implements OnInit {
 
   @Input('item') item: OrderDetailsAdmin = {} as OrderDetailsAdmin;
   @Input('orderType') orderType: OrderType = OrderType.failed;
+  @Input() isAdmin = false;
 
   constructor(private firestore: AngularFirestore) {}
 

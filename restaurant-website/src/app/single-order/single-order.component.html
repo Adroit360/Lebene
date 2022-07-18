@@ -64,15 +64,15 @@
           </div>
         </div>
       </li>
-      <li>
+      <li *ngIf="isAdmin">
         <p>Delivery Fee:</p>
         GHS {{ item.deliveryFee }}
       </li>
-      <li>
+      <li *ngIf="isAdmin">
         <p>Price Of food:</p>
         GHS {{ item.priceOfFood }}
       </li>
-      <li>
+      <li *ngIf="isAdmin">
         <p>Total Price:</p>
         GHS {{ item.amount }}
       </li>

@@ -112,6 +112,7 @@
           *ngFor="let item of foodOrdered"
           [item]="item"
           [orderType]="OrderType.pendingOrder"
+          [isAdmin]="showOrderDetails"
         ></app-single-order>
       </div>
     </main>
@@ -125,6 +126,7 @@
           *ngFor="let item of failedOrders"
           [item]="item"
           [orderType]="OrderType.failed"
+          [isAdmin]="showOrderDetails"
         ></app-single-order>
       </div>
     </main>
@@ -137,6 +139,7 @@
           *ngFor="let item of deliveredOrders"
           [item]="item"
           [orderType]="OrderType.completed"
+          [isAdmin]="showOrderDetails"
         ></app-single-order>
       </div>
     </main>
