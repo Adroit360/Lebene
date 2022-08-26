@@ -46,6 +46,7 @@ export class AdminComponent implements OnInit {
   foodOrdered: OrderDetailsAdmin[] = [];
 
   paidOrders!: OrderDetailsAdmin[];
+  customers: any = [];
 
   OrderType = OrderType;
 
@@ -76,6 +77,7 @@ export class AdminComponent implements OnInit {
       this.deliveredOrders = [];
       this.failedOrders = [];
       items.forEach((item) => {
+        // this.customers.push({ name: item.name, phoneNumber: item.phoneNumber });
         if (item.orderPaid) {
           if (!item.completed) {
             this.foodOrdered.push(item);
@@ -129,6 +131,7 @@ export class AdminComponent implements OnInit {
           .orderBy('date', 'desc')
       )
       .valueChanges({ idField: 'Id' });
+    // return this.firestore.collection('orders').valueChanges({ idField: 'Id' });
   }
 
   logOut(): void {
