@@ -97,6 +97,8 @@
 
 .container {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   .nav-container {
     background: #febe19;
     display: flex;
@@ -311,11 +313,14 @@
 
 .categories {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.7rem;
   overflow-x: auto;
-  margin: 0 1rem;
+  // margin: 0 1rem;
   color: #636e72;
   text-transform: capitalize;
+  width: 100%;
   .active {
     background-color: #febe19;
     color: #ffffff;
@@ -325,5 +330,26 @@
     border: 1px solid #636e72;
     padding: 0.25rem 1rem;
     border-radius: 18px;
+    margin: 0;
+    cursor: pointer;
+    &:hover {
+      background-color: #febe19;
+      color: #ffffff;
+      border: none;
+    }
   }
+}
+
+/*
+    position: fixed;
+    top: 3.5rem;
+    width: 100%;
+    left: -16px;
+    right: 0;
+    backdrop-filter: blur(10px);
+
+*/
+
+app-footer {
+  margin-top: auto;
 }

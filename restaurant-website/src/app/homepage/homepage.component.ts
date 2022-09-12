@@ -1,5 +1,5 @@
 import { SocketService } from './../services/socket-service.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { io } from 'socket.io-client';
 import { Observable, Subscription } from 'rxjs';
@@ -78,6 +78,13 @@ export class HomepageComponent implements OnInit {
 
     this.foodArray = this.socketService.getFoodByCategory(this.category);
   }
+
+  // @HostListener('window:scroll', ['$event']) // for window scroll events
+  // onScroll(event: any) {
+  //   console.log('scroll top: ', document.body.scrollTop);
+  //   console.log('document top: ', document.documentElement.scrollTop); //630px
+  //   //console.log(event);
+  // }
 
   onProceedToOrderPage(id: number): void {
     if (this.orderStatus || this.day === 0) {
