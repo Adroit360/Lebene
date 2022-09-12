@@ -32,11 +32,27 @@
 <div class="modal" *ngIf="addAnotherItemModal">
   <div style="max-height: calc(100vh - 4rem)" class="popup center">
     <div class="header">
-      <div class="left">Add Another Food</div>
-      <div (click)="closeAddAnotherItemModal()" class="right pill">close</div>
+      <div class="header__title">
+        <div class="left">Add Another Food</div>
+        <div (click)="closeAddAnotherItemModal()" class="right pill">close</div>
+      </div>
+
+      <div class="categories">
+        <p
+          *ngFor="let item of filters"
+          [ngClass]="item === category ? 'active' : ''"
+          (click)="onSelectFilter(item)"
+        >
+          {{ item }}
+        </p>
+      </div>
     </div>
     <div
-      style="overflow: auto; max-height: calc(100vh - 10rem)"
+      style="
+        overflow: auto;
+        max-height: calc(100vh - 10rem);
+        margin-top: 6rem; ;
+      "
       class="menu__container"
     >
       <div class="menu__meal__card" *ngFor="let item of foodArray">

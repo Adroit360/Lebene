@@ -41,6 +41,9 @@ export class OrderPageComponent implements OnInit {
   payStackUrl: any;
   payStackModal = false;
   errorMessage = '';
+  category = 'beans';
+  filters = ['beans', 'rice', 'fufu', 'banku'];
+
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -375,7 +378,9 @@ export class OrderPageComponent implements OnInit {
     let foodOrderedIds = this.foodsOrdered.map((i) => i.id);
     this.foodArray = this.socketService
       .getAllFoods()
-      .filter((i) => !foodOrderedIds.includes(i.id));
+      .filter(
+        (i) => !foodOrderedIds.includes(i.id) && i.category === this.category
+      );
     this.addAnotherItemModal = true;
   }
 
@@ -419,5 +424,13 @@ export class OrderPageComponent implements OnInit {
   onCloseLocationModal() {
     window.scroll(0, 0);
     this.isValidLocationOrPacks = false;
+  }
+
+  onSelectFilter(item: string) {
+    this.category = item;
+    let foodOrderedIds = this.foodsOrdered.map((i) => i.id);
+    this.foodArray = this.socketService
+      .getAllFoods()
+      .filter((i) => !foodOrderedIds.includes(i.id) && i.category === item);
   }
 }
