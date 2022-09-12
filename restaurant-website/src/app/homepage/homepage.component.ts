@@ -76,7 +76,7 @@ export class HomepageComponent implements OnInit {
       }
     });
 
-    this.foodArray = this.socketService.getAllFoods();
+    this.foodArray = this.socketService.getFoodByCategory(this.category);
   }
 
   onProceedToOrderPage(id: number): void {
@@ -90,5 +90,6 @@ export class HomepageComponent implements OnInit {
 
   onSelectFilter(item: string) {
     this.category = item;
+    this.foodArray = this.socketService.getFoodByCategory(item);
   }
 }

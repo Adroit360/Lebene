@@ -17,6 +17,7 @@ export class SocketService {
       image: '../../assets/beans and egg.jpg',
       alt: 'Beans with plantain and egg',
       price: '25.00',
+      category: 'beans',
     },
     {
       id: '3646754e10574da3a16a90e2ecff5e06',
@@ -24,6 +25,7 @@ export class SocketService {
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and fish',
       price: '30.00',
+      category: 'beans',
     },
     {
       id: '4226d4f1e91e404880345bc18be88e5b',
@@ -31,6 +33,7 @@ export class SocketService {
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and meat',
       price: '30.00',
+      category: 'beans',
     },
     {
       id: 'ab62ad68aff443afa4c827a78a22e3a3',
@@ -38,6 +41,7 @@ export class SocketService {
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans with plantain, egg and chicken',
       price: '30.00',
+      category: 'beans',
     },
     {
       id: '6fe15e03186f478b8c2399ae70a51960',
@@ -45,6 +49,7 @@ export class SocketService {
       image: '../../assets/RiceWithPlantainAndEgg.jpg',
       alt: 'Beans and rice with plantain and egg',
       price: '30.00',
+      category: 'beans',
     },
     {
       id: 'c4d3ddc886c540149323387915598847',
@@ -52,6 +57,7 @@ export class SocketService {
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans and rice with plantain, egg and chicken',
       price: '35.00',
+      category: 'beans',
     },
     {
       id: 'ddbf19c31b9c4844865bf59fbb8fc985',
@@ -59,6 +65,7 @@ export class SocketService {
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg and meat',
       price: '35.00',
+      category: 'beans',
     },
     {
       id: '4d2da93389ce48aa8841c56891494942',
@@ -66,6 +73,7 @@ export class SocketService {
       image: '../../assets/riceWithFishAndEgg.jpg',
       alt: 'Beans and rice with plantain, egg and fish',
       price: '35.00',
+      category: 'beans',
     },
     {
       id: '91fcca31cba046fea468af2c659bcf86',
@@ -73,6 +81,7 @@ export class SocketService {
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg, fish and meat',
       price: '45.00',
+      category: 'beans',
     },
   ];
 
@@ -82,6 +91,10 @@ export class SocketService {
 
   getAllFoods(): Food[] {
     return this.foodArray;
+  }
+
+  getFoodByCategory(category: string): Food[] {
+    return this.foodArray.filter((food) => food.category === category);
   }
 
   getClosingTime(): { closingTime: string; openingTime: string } {
