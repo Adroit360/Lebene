@@ -78,7 +78,18 @@
       </div>
     </div> -->
     <div class="body__menu" id="menu">
-      <h1>Our Menu</h1>
+      <div>
+        <h1 style="margin: 0">Our Menu</h1>
+        <div class="categories">
+          <p
+            *ngFor="let item of filters"
+            [ngClass]="item === category ? 'active' : ''"
+            (click)="onSelectFilter(item)"
+          >
+            {{ item }}
+          </p>
+        </div>
+      </div>
       <div class="menu__container">
         <div class="menu__meal__card" *ngFor="let item of foodArray">
           <div class="card__image">

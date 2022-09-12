@@ -308,3 +308,21 @@
     }
   }
 }
+
+.categories {
+  display: flex;
+  gap: 0.7rem;
+  overflow-x: auto;
+  margin: 0 1rem;
+  color: #636e72;
+  text-transform: capitalize;
+  .active {
+    background-color: #febe19;
+    color: #ffffff;
+  }
+  p {
+    border: 1px solid #636e72;
+    padding: 0.25rem 1rem;
+    border-radius: 18px;
+  }
+}

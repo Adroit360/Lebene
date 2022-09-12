@@ -14,6 +14,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class HomepageComponent implements OnInit {
   private socket: any;
   momoErrorMessage$: Observable<any>;
+  category = 'beans';
+  filters = ['beans', 'rice', 'fufu', 'banku'];
+
   constructor(
     private router: Router,
     private socketService: SocketService,
@@ -83,5 +86,9 @@ export class HomepageComponent implements OnInit {
       this.closingTimeError = false;
       this.router.navigate(['/orders', id]);
     }
+  }
+
+  onSelectFilter(item: string) {
+    this.category = item;
   }
 }
