@@ -15,7 +15,7 @@ export class HomepageComponent implements OnInit {
   private socket: any;
   momoErrorMessage$: Observable<any>;
   category = 'beans';
-  filters = ['beans', 'rice', 'fufu', 'banku'];
+  filters = ['beans', 'extras', 'rice', 'banku'];
 
   constructor(
     private router: Router,
@@ -87,12 +87,13 @@ export class HomepageComponent implements OnInit {
   // }
 
   onProceedToOrderPage(id: number): void {
-    if (this.orderStatus || this.day === 0) {
-      this.closingTimeError = true;
-    } else {
-      this.closingTimeError = false;
-      this.router.navigate(['/orders', id]);
-    }
+    // if (this.orderStatus || this.day === 0) {
+    //   this.closingTimeError = true;
+    // } else {
+    //   this.closingTimeError = false;
+    //   this.router.navigate(['/orders', id]);
+    // }
+    this.router.navigate(['/orders', id]);
   }
 
   onSelectFilter(item: string) {

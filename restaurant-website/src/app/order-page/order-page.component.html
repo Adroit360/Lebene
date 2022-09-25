@@ -50,8 +50,9 @@
     <div
       style="
         overflow: auto;
-        max-height: calc(100vh - 10rem);
-        margin-top: 6rem; ;
+        max-height: calc(100% - 8rem);
+        margin-top: 6.5rem;
+        padding-bottom: 1rem;
       "
       class="menu__container"
     >
@@ -124,42 +125,26 @@
   </nav>
 
   <div class="container">
-    <!-- <div class="payment__error" *ngIf="paymentError">
-      <div class="info">
-        <span class="material-icons"> info </span>
-        <p>{{ error }}</p>
-      </div>
-      <span class="material-icons close" (click)="onClose()"> close </span>
-    </div> -->
-    <!-- <div class="payment__success" *ngIf="paymentSuccess">
-      <div class="info">
-        <span class="material-icons"> check_circle </span>
-        <p>{{ success }}</p>
-      </div>
-      <span class="material-icons close" (click)="onClose()"> close </span>
-    </div> -->
-    <!-- <div class="payment__loading" *ngIf="paymentLoading">
-      <div class="loader"></div>
-      <p>{{ paymentReason }}</p>
-    </div> -->
-
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <h1 class="form__title">Place order</h1>
       <div class="form__container">
         <div class="form__control">
           <label for="foodOrdered">Item(s)</label>
-          <div class="food-name-container" *ngFor="let item of foodsOrdered">
-            <input
-              type="text"
-              placeholder="Enter food"
-              name="foodOrdered"
-              class="food-name-input"
-              value="{{ item.foodName }}"
-              readonly
-            />
-            <div (click)="removeFood(item.id)" class="remove-food pill">
-              <i class="fa fa-trash-o"></i>
+          <div>
+            <div class="food-name-container" *ngFor="let item of foodsOrdered">
+              <input
+                type="text"
+                placeholder="Enter food"
+                name="foodOrdered"
+                class="food-name-input"
+                value="{{ item.foodName }}"
+                readonly
+              />
+              <div (click)="removeFood(item.id)" class="remove-food pill">
+                <i class="fa fa-trash-o"></i>
+              </div>
             </div>
+            <!-- <div class="extras-button">Add extras</div> -->
           </div>
 
           <div (click)="addAnotherItem()" class="add-another">
