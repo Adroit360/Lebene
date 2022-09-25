@@ -7,6 +7,9 @@ import { Observable, Subscription } from 'rxjs';
 import { OrderType } from '../single-order/single-order.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import dayjs from 'dayjs/esm';
+import utc from 'dayjs/esm/plugin/utc';
+dayjs.extend(utc);
 
 @Component({
   selector: 'app-admin',
@@ -44,6 +47,11 @@ export class AdminComponent implements OnInit {
     0
   ).setHours(23, 59, 59, 999);
   foodOrdered: OrderDetailsAdmin[] = [];
+
+  selected: any = {
+    endDate: dayjs(this.endDate) as any,
+    startDate: dayjs(this.startDate) as any,
+  };
 
   paidOrders!: OrderDetailsAdmin[];
 
@@ -187,5 +195,14 @@ export class AdminComponent implements OnInit {
     if (page) {
       this.currentPage = page;
     }
+  }
+
+  onDateChanged(event: any) {
+    const { endDate, startDate } = this.selected;
+    console.log(
+      'end date: ',
+      new Date(endDate.$d).setHours(23, 59, 59, 999).toString()
+    );
+    console.log('start date: ', new Date(startDate.$d).getTime().toString());
   }
 }
