@@ -247,6 +247,9 @@ export class SocketService {
   }
 
   getFoodByCategory(category: string): Food[] {
+    if (category === 'all foods') {
+      return this.foodArray.filter((food) => food.category !== 'extras');
+    }
     return this.foodArray.filter((food) => food.category === category);
   }
 
