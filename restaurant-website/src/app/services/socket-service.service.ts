@@ -167,8 +167,7 @@ export class SocketService {
     {
       id: '91fcca31cba046fea468af2c659bcf96',
       body: 'Banku with okro stew (crab, Wele & Meat)',
-      image:
-        'http://www.tastytreatscatering.com/wp-content/uploads/2020/05/Banku-Fish-1.jpg',
+      image: '../../assets/Banku-Fish-1.jpeg',
       alt: 'Banku with okro stew (crab, Wele & Meat)',
       price: '35.00',
       category: 'banku',
@@ -176,8 +175,7 @@ export class SocketService {
     {
       id: '91fcca31cba046fea468af2c659bcf97',
       body: 'Banku with okro stew (crab, Wele,fish & Meat)',
-      image:
-        'http://www.tastytreatscatering.com/wp-content/uploads/2020/05/Banku-Fish-1.jpg',
+      image: '../../assets/Banku-Fish-1.jpeg',
       alt: 'Banku with okro stew (crab, Wele,fish & Meat)',
       price: '40.00',
       category: 'banku',
