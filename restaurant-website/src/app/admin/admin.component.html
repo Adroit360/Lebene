@@ -77,15 +77,15 @@
   </div>
   <div class="display-page">
     <main class="display__container" *ngIf="currentPage === 'orders'">
-      <!-- <input
+      <input
         class="date-input"
         type="text"
         ngxDaterangepickerMd
         [(ngModel)]="selected"
         placeholder="Choose date"
         (change)="onDateChanged($event)"
-        (cancel)="(true)"
-      /> -->
+        *ngIf="showOrderDetails"
+      />
       <div class="order-details" *ngIf="showOrderDetails">
         <div class="card">
           <div class="card-info">

@@ -234,6 +234,38 @@ export class SocketService {
       price: '7.00',
       category: 'extras',
     },
+    {
+      id: '91fcca31cba046fea468af2c659bcf200',
+      body: 'Fufu with goat meat and salmon',
+      image: '../../assets/fufu.jpeg',
+      alt: 'Fufu with goat meat and salmon',
+      price: '40.00',
+      category: 'fufu',
+    },
+    {
+      id: '91fcca31cba046fea468af2c659bcf201',
+      body: 'Fufu with cow meat and tuna',
+      image: '../../assets/fufu.jpeg',
+      alt: 'Fufu with cow meat and tuna',
+      price: '40.00',
+      category: 'fufu',
+    },
+    {
+      id: '91fcca31cba046fea468af2c659bcf202',
+      body: 'Fufu with Goat meat and cow meat',
+      image: '../../assets/fufu.jpeg',
+      alt: 'Fufu with Goat meat and cow meat',
+      price: '40.00',
+      category: 'fufu',
+    },
+    {
+      id: '91fcca31cba046fea468af2c659bcf202',
+      body: 'Salmon and tuna',
+      image: '../../assets/fufulebene.jpg',
+      alt: 'Salmon and tuna',
+      price: '40.00',
+      category: 'fufu',
+    },
   ];
 
   getFoodByID(id: string): Food {

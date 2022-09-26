@@ -42,7 +42,7 @@ export class OrderPageComponent implements OnInit {
   payStackModal = false;
   errorMessage = '';
   category = 'beans';
-  filters = ['beans', 'extras', 'rice', 'banku'];
+  filters = ['beans', 'extras', 'rice', 'banku', 'fufu'];
 
   constructor(
     private router: Router,

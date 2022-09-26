@@ -13,9 +13,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  momoErrorMessage$: Observable<any>;
   category = 'all foods';
-  filters = ['all foods', 'beans', 'rice', 'banku'];
+  filters = ['all foods', 'beans', 'rice', 'banku', 'fufu'];
 
   constructor(
     private router: Router,
@@ -24,21 +23,6 @@ export class HomepageComponent implements OnInit {
     private firestore: AngularFirestore
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
-    this.momoErrorMessage$ = this.firestore
-      .collection('messages')
-      .valueChanges();
-    this.momoErrorMessage$.subscribe((res) => {
-      for (let i = 0; i < res.length; i++) {
-        if (
-          res[i].type === 'momo-error' &&
-          res[i].message !== '' &&
-          res[i].message !== null
-        ) {
-          this.momoErrorMessage = res[i].message;
-          this.momoError = true;
-        }
-      }
-    });
   }
 
   foodArray: any;
