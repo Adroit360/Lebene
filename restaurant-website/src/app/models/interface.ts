@@ -25,6 +25,7 @@ export interface Food {
   image: string;
   alt: string;
   price: string;
+  category: string;
 }
 
 export interface OrderDetails {
@@ -40,7 +41,7 @@ export interface OrderDetails {
   deliveryFee: number;
   priceOfFood: string;
   orderPaid: boolean;
-  numberOfPacks: {[key: string]: number};
+  numberOfPacks: { [key: string]: number };
 }
 
 export interface OrderDetailsAdmin {
@@ -54,7 +55,7 @@ export interface OrderDetailsAdmin {
   note?: string;
   completed: boolean;
   Id: string;
-  numberOfPacks: {[key: string]: number}[];
+  numberOfPacks: { [key: string]: number }[];
   deliveryFee: number;
   priceOfFood: string;
   orderPaid: boolean;

@@ -39,6 +39,7 @@ import { KeysPipe } from 'src/pipes/keys.pipe';
 import { SingleOrderComponent } from './single-order/single-order.component';
 import { FooterComponent } from './footer/footer.component';
 import { AvatarComponent } from './avatar/avatar.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { AvatarComponent } from './avatar/avatar.component';
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestore,
     HttpClientModule,
+    NgxDaterangepickerMd.forRoot(),
   ],
   providers: [ScreenTrackingService, UserTrackingService, AngularFirestore],
   bootstrap: [AppComponent],

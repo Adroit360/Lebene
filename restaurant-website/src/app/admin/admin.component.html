@@ -5,7 +5,7 @@
       <p>Orders are closed. Open orders</p>
     </div>
   </div>
-  <div class="menu-icon">
+  <div class="menu-icon" style="width: max-content">
     <div
       class="menu-icon-bars"
       [ngClass]="{
@@ -77,6 +77,15 @@
   </div>
   <div class="display-page">
     <main class="display__container" *ngIf="currentPage === 'orders'">
+      <input
+        class="date-input"
+        type="text"
+        ngxDaterangepickerMd
+        [(ngModel)]="selected"
+        placeholder="Choose date"
+        (change)="onDateChanged($event)"
+        *ngIf="showOrderDetails"
+      />
       <div class="order-details" *ngIf="showOrderDetails">
         <div class="card">
           <div class="card-info">

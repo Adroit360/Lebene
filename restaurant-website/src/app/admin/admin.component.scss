@@ -423,3 +423,15 @@
     }
   }
 }
+.date-input {
+  border: none;
+  height: 3rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 3px 3px -1px #0a16461a, 0 0 1px #0a16460f;
+  width: max-content;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  @media screen and (max-width: 800px) {
+    margin-left: 4rem;
+  }
+}

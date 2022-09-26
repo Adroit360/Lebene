@@ -7,6 +7,9 @@ import { Observable, Subscription } from 'rxjs';
 import { OrderType } from '../single-order/single-order.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import dayjs from 'dayjs/esm';
+import utc from 'dayjs/esm/plugin/utc';
+dayjs.extend(utc);
 
 @Component({
   selector: 'app-admin',
@@ -45,6 +48,11 @@ export class AdminComponent implements OnInit {
   ).setHours(23, 59, 59, 999);
   foodOrdered: OrderDetailsAdmin[] = [];
 
+  selected: any = {
+    endDate: dayjs(this.endDate) as any,
+    startDate: dayjs(this.startDate) as any,
+  };
+
   paidOrders!: OrderDetailsAdmin[];
 
   OrderType = OrderType;
@@ -59,7 +67,10 @@ export class AdminComponent implements OnInit {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
 
-    this.orders$ = this.onGetTotalOrdersCollection();
+    this.orders$ = this.onGetTotalOrdersCollection(
+      this.startDate,
+      this.endDate
+    );
     let itemSubs = this.orders$.subscribe((res) => {
       if (!this.isFirstTime && res.length > this.itemLength)
         this.notificationAudio.play();
@@ -70,25 +81,7 @@ export class AdminComponent implements OnInit {
 
     // get the total orders and total amount
     this.orders$.subscribe((items) => {
-      this.totalAmount = 0;
-      this.totalOrders = 0;
-      this.foodOrdered = [];
-      this.deliveredOrders = [];
-      this.failedOrders = [];
-      items.forEach((item) => {
-        if (item.orderPaid) {
-          if (!item.completed) {
-            this.foodOrdered.push(item);
-          } else {
-            this.deliveredOrders.push(item);
-          }
-          this.totalAmount += parseFloat(item.priceOfFood);
-          this.totalOrders += 1;
-        } else {
-          this.failedOrders.push(item);
-        }
-      });
-      this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
+      this.onCalculateOrders(items);
     });
 
     this.subscriptions.push(itemSubs);
@@ -120,12 +113,15 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onGetTotalOrdersCollection(): Observable<any> {
+  onGetTotalOrdersCollection(
+    startDate: Date,
+    endDate: number
+  ): Observable<any> {
     return this.firestore
       .collection('orders', (orders) =>
         orders
-          .where('date', '>=', this.startDate.getTime().toString())
-          .where('date', '<=', this.endDate.toString())
+          .where('date', '>=', startDate.getTime().toString())
+          .where('date', '<=', endDate.toString())
           .orderBy('date', 'desc')
       )
       .valueChanges({ idField: 'Id' });
@@ -187,5 +183,39 @@ export class AdminComponent implements OnInit {
     if (page) {
       this.currentPage = page;
     }
+  }
+
+  onDateChanged(event: any) {
+    const { endDate, startDate } = this.selected;
+    this.orders$ = this.onGetTotalOrdersCollection(
+      startDate.$d,
+      new Date(endDate.$d).setHours(23, 59, 59, 999)
+    );
+
+    this.orders$.subscribe((items) => {
+      this.onCalculateOrders(items);
+    });
+  }
+
+  onCalculateOrders(items: any) {
+    this.totalAmount = 0;
+    this.totalOrders = 0;
+    this.foodOrdered = [];
+    this.deliveredOrders = [];
+    this.failedOrders = [];
+    items.forEach((item: any) => {
+      if (item.orderPaid) {
+        if (!item.completed) {
+          this.foodOrdered.push(item);
+        } else {
+          this.deliveredOrders.push(item);
+        }
+        this.totalAmount += parseFloat(item.priceOfFood);
+        this.totalOrders += 1;
+      } else {
+        this.failedOrders.push(item);
+      }
+    });
+    this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
   }
 }

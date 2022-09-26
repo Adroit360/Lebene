@@ -97,6 +97,8 @@
 
 .container {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   .nav-container {
     background: #febe19;
     display: flex;
@@ -307,4 +309,18 @@
       }
     }
   }
+}
+
+/*
+    position: fixed;
+    top: 3.5rem;
+    width: 100%;
+    left: -16px;
+    right: 0;
+    backdrop-filter: blur(10px);
+
+*/
+
+app-footer {
+  margin-top: auto;
 }
