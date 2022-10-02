@@ -106,4 +106,5 @@ export const cities = [
   { name: 'Tabora', price: 30 },
   { name: 'Sakumono', price: 35 },
   { name: 'Tse Addo', price: 30 },
+  { name: 'Lashibi', price: 35 },
 ];

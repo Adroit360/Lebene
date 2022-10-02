@@ -478,14 +478,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem;
   cursor: pointer;
+  margin-bottom: 1rem;
+  background-color: #0967c7;
+  transition: all;
+  border-radius: 10px;
+  font-size: 1rem;
+  padding: 0.7rem 0.5rem;
+  @media screen and (max-width: 500px) {
+    font-size: 0.8rem;
+  }
   span {
     display: inline-block;
   }
-  color: #558ed5;
+  color: #ffffff;
   &:hover {
-    color: #1f70d3;
+    background-color: #1f70d3;
   }
 }
 
