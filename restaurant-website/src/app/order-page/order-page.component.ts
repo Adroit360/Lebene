@@ -43,6 +43,7 @@ export class OrderPageComponent implements OnInit {
   errorMessage = '';
   category = 'beans';
   filters = ['beans', 'extras', 'rice', 'banku', 'fufu'];
+  showLocation = true;
 
   constructor(
     private router: Router,
@@ -81,6 +82,7 @@ export class OrderPageComponent implements OnInit {
     location: new FormControl('', Validators.required),
     // deliveryFee: new FormControl(''),
     // amount: new FormControl(0, Validators.required),
+    deliveryType: new FormControl('dispatch-rider', Validators.required),
     numberOfPacks: new FormControl('', Validators.required),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
@@ -110,6 +112,7 @@ export class OrderPageComponent implements OnInit {
   deliveryFee = 0;
   totalPrice = 0;
   clientTransactionId = '';
+  deliveryType = 'dispatch-rider';
 
   ngOnInit(): void {
     window.scroll(0, 0);
@@ -209,8 +212,13 @@ export class OrderPageComponent implements OnInit {
       amount: this.totalPrice,
       note: this.orderForm.value.note,
       completed: false,
-      location: this.orderForm.value.location,
-      deliveryFee: this.deliveryFee,
+      location:
+        this.orderForm.value.deliveryType === 'pick-up'
+          ? 'Pick Up'
+          : this.orderForm.value.location,
+      deliveryType: this.orderForm.value.deliveryType,
+      deliveryFee:
+        this.orderForm.value.deliveryType === 'pick-up' ? 0 : this.deliveryFee,
       priceOfFood: this.priceOfFood,
       orderPaid: false,
       numberOfPacks: this.foodsOrdered.map((food) => ({
@@ -432,5 +440,18 @@ export class OrderPageComponent implements OnInit {
     this.foodArray = this.socketService
       .getAllFoods()
       .filter((i) => !foodOrderedIds.includes(i.id) && i.category === item);
+  }
+
+  onDeliveryTypeChange(event: any) {
+    if (event.target.value === 'pick-up') {
+      this.showLocation = false;
+      this.deliveryFee = 0;
+      this.calculateAmount(event);
+    } else {
+      this.showLocation = true;
+      if (this.orderForm.value.location) {
+        this.onCalculateFee(this.orderForm.value.location);
+      }
+    }
   }
 }
