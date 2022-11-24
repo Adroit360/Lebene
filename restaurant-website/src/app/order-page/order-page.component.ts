@@ -53,7 +53,7 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
+    this.socket = io('https://lebene-beans-updated-api.azurewebsites.net');
     // this.socket = io('http://localhost:8000/');
     this.foodArray = this.socketService.getAllFoods();
     this.momoErrorMessage$ = this.firestore
@@ -95,7 +95,7 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://restaurant-payment-backend.herokuapp.com/paystack/payment';
+  url = 'https://lebene-beans-updated-api.azurewebsites.net/paystack/payment';
   //url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;
@@ -191,13 +191,16 @@ export class OrderPageComponent implements OnInit {
       return;
     }
 
-    if (this.invalidLocation || this.f['location'].errors) {
+    if (
+      (this.invalidLocation || this.f['location'].errors) &&
+      this.showLocation
+    ) {
       this.isValidLocationOrPacks = true;
       this.errorMessage = 'Please select a valid location';
       return;
     }
 
-    if (this.orderForm.invalid) {
+    if ((this.orderForm.invalid || this.invalidLocation) && this.showLocation) {
       window.scroll(0, 0);
       return;
     }
@@ -242,8 +245,8 @@ export class OrderPageComponent implements OnInit {
 
     this.loading = true;
     const body = {
-      amount: this.totalPrice * 100,
-      //amount: 0.03 * 100,
+      // amount: this.totalPrice * 100,
+      amount: 0.03 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
@@ -333,19 +336,10 @@ export class OrderPageComponent implements OnInit {
       foodsPrice += Number(food.price * +food.quantity);
     });
     this.priceOfFood = foodsPrice.toFixed(2);
-    if (this.deliveryFee)
-      this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
 
-    // console.log('foodsOrdered', this.foodsOrdered, foodsPrice);
-    return;
-
-    let quantity = event.target.value;
-    this.priceOfFood = (parseFloat(this.price) * parseInt(quantity)).toFixed(2);
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
 
-    // this.orderForm.patchValue({
-    //   amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
-    // });
+    return;
   }
 
   onCalculateFee(event: any): void {
