@@ -210,7 +210,7 @@ export class AdminComponent implements OnInit {
         } else {
           this.deliveredOrders.push(item);
         }
-        this.totalAmount += parseFloat(item.priceOfFood);
+        this.totalAmount += item.amount;
         this.totalOrders += 1;
       } else {
         this.failedOrders.push(item);
