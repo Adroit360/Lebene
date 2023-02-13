@@ -212,7 +212,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/281b3d9e91dc48c88eeea96fe7590f12.jpeg',
       alt: 'Extra beef',
-      price: '7.00',
+      price: '10.00',
       category: 'extras',
     },
     {
