@@ -203,7 +203,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/ae9b1e9d51b34dd5b7d89916dfc7615d.jpeg',
       alt: 'Extra chicken',
-      price: '7.00',
+      price: '10.00',
       category: 'extras',
     },
     {
@@ -221,7 +221,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/d286e5c8ba964d3c8d28ec7068fd1485.jpeg',
       alt: 'Extra cow meat',
-      price: '7.00',
+      price: '10.00',
       category: 'extras',
     },
     {
@@ -239,7 +239,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/cca744abd84b442898562e5adf414cb9.jpeg',
       alt: 'Extra fish',
-      price: '7.00',
+      price: '10.00',
       category: 'extras',
     },
     {
