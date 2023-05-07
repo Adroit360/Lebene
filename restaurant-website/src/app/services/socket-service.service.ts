@@ -80,7 +80,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg, fish and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg, fish and meat',
-      price: '60.00',
+      price: '70.00',
       category: 'beans',
     },
     {
@@ -97,7 +97,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/9d7add1feb2c4db1b0f73dc7fff65a6c.jpeg',
       alt: 'Plain rice and stew with red fish',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -106,7 +106,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/739162e260634fecb0778d90df445c66.jpeg',
       alt: 'Plain rice with stew and chicken',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -124,7 +124,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/b18a3b04a8894f24aa8237b0c1ee425c.jpeg',
       alt: 'Fried Rice with chicken',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -133,7 +133,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/16e9f7331bbe4e4f96600300b2e5a165.jpeg',
       alt: 'Fried Rice with cow meat',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -142,7 +142,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/58701df60c924014addee65c8a71f055.jpeg',
       alt: 'Fried Rice with red fish',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -151,7 +151,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/58701df60c924014addee65c8a71f055.jpeg',
       alt: 'Jollof with chicken',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -160,7 +160,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/e5cda0f1e59b41caad09b73e0a25b19b.jpeg',
       alt: 'Jollof with cow meat',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -169,7 +169,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/c1770f9226fc4cc6a7e456155d6b5aad.jpeg',
       alt: 'Jollof with red fish',
-      price: '45.00',
+      price: '55.00',
       category: 'rice',
     },
     {
@@ -177,7 +177,7 @@ export class SocketService {
       body: 'Banku with okro stew (crab, Wele & Meat)',
       image: '../../assets/Banku-Fish-1.jpeg',
       alt: 'Banku with okro stew (crab, Wele & Meat)',
-      price: '45.00',
+      price: '70.00',
       category: 'banku',
     },
     {
@@ -247,7 +247,7 @@ export class SocketService {
       body: 'Fufu with goat meat and salmon',
       image: '../../assets/fufu.jpeg',
       alt: 'Fufu with goat meat and salmon',
-      price: '50.00',
+      price: '60.00',
       category: 'fufu',
     },
     {
@@ -255,7 +255,7 @@ export class SocketService {
       body: 'Fufu with cow meat and tuna',
       image: '../../assets/fufu.jpeg',
       alt: 'Fufu with cow meat and tuna',
-      price: '50.00',
+      price: '60.00',
       category: 'fufu',
     },
     {
@@ -263,7 +263,7 @@ export class SocketService {
       body: 'Fufu with Goat meat and cow meat',
       image: '../../assets/fufu.jpeg',
       alt: 'Fufu with Goat meat and cow meat',
-      price: '50.00',
+      price: '60.00',
       category: 'fufu',
     },
     {
@@ -271,7 +271,7 @@ export class SocketService {
       body: 'Fufu with Salmon and tuna',
       image: '../../assets/fufulebene.jpg',
       alt: 'Salmon and tuna',
-      price: '50.00',
+      price: '55.00',
       category: 'fufu',
     },
   ];
