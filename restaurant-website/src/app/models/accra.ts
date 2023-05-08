@@ -25,7 +25,7 @@ export const cities = [
   { name: 'Apenkwa', price: 30 },
   { name: 'Ashaiman Municipal', price: 45 },
   { name: 'Ashaley Botwe', price: 40 },
-  { name: 'Ashomang Estate', price: 40 },
+  { name: 'Ashomang Estate', price: 45 },
   { name: 'Asylum Down', price: 30 },
   { name: 'Atomic', price: 35 },
   { name: 'Avenor Area', price: 25 },
