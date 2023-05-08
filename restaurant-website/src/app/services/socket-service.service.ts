@@ -16,7 +16,7 @@ export class SocketService {
       body: 'Beans with plantain and egg',
       image: '../../assets/beans and egg.jpg',
       alt: 'Beans with plantain and egg',
-      price: '30.00',
+      price: '35.00',
       category: 'beans',
     },
     {
@@ -24,7 +24,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and fish',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and fish',
-      price: '40.00',
+      price: '45.00',
       category: 'beans',
     },
     {
@@ -32,7 +32,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and meat',
-      price: '40.00',
+      price: '45.00',
       category: 'beans',
     },
     {
@@ -40,7 +40,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and chicken',
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans with plantain, egg and chicken',
-      price: '40.00',
+      price: '45.00',
       category: 'beans',
     },
     {
@@ -48,7 +48,7 @@ export class SocketService {
       body: 'Beans and rice with plantain and egg',
       image: '../../assets/RiceWithPlantainAndEgg.jpg',
       alt: 'Beans and rice with plantain and egg',
-      price: '40.00',
+      price: '45.00',
       category: 'beans',
     },
     {
@@ -56,7 +56,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and chicken',
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans and rice with plantain, egg and chicken',
-      price: '50.00',
+      price: '55.00',
       category: 'beans',
     },
     {
@@ -64,7 +64,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg and meat',
-      price: '50.00',
+      price: '55.00',
       category: 'beans',
     },
     {
@@ -72,7 +72,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and fish',
       image: '../../assets/riceWithFishAndEgg.jpg',
       alt: 'Beans and rice with plantain, egg and fish',
-      price: '50.00',
+      price: '55.00',
       category: 'beans',
     },
     {
@@ -80,7 +80,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg, fish and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg, fish and meat',
-      price: '70.00',
+      price: '80.00',
       category: 'beans',
     },
     {
@@ -88,7 +88,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg, fish and chicken',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg, fish and chicken',
-      price: '60.00',
+      price: '70.00',
       category: 'beans',
     },
     {
