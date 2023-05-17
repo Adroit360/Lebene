@@ -45,7 +45,7 @@ export const cities = [
   { name: 'Kwabenya', price: 40 },
   { name: 'Dzorwulu', price: 20 },
   { name: 'East Legon', price: 50 },
-  { name: 'East Legon Hills', price: 40 },
+  { name: 'East Legon Hills', price: 50 },
   { name: 'Gbawe', price: 35 },
   { name: 'Haatso', price: 35 },
   { name: 'James Town', price: 30 },
