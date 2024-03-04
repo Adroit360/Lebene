@@ -53,7 +53,7 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://lebene-beans-updated-api.azurewebsites.net');
+    this.socket = io('https://lebene-beans-6fad4d876895.herokuapp.com');
     // this.socket = io('http://localhost:8000/');
     this.foodArray = this.socketService.getAllFoods();
     this.momoErrorMessage$ = this.firestore
@@ -95,7 +95,7 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://lebene-beans-updated-api.azurewebsites.net/paystack/payment';
+  url = 'https://lebene-beans-6fad4d876895.herokuapp.com/paystack/payment';
   //url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;

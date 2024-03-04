@@ -16,7 +16,7 @@ export class SocketService {
       body: 'Beans with plantain and egg',
       image: '../../assets/beans and egg.jpg',
       alt: 'Beans with plantain and egg',
-      price: '35.00',
+      price: '40.00',
       category: 'beans',
     },
     {
@@ -24,7 +24,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and fish',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and fish',
-      price: '50.00',
+      price: '55.00',
       category: 'beans',
     },
     {
@@ -32,7 +32,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and meat',
-      price: '50.00',
+      price: '55.00',
       category: 'beans',
     },
     {
@@ -40,7 +40,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and chicken',
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans with plantain, egg and chicken',
-      price: '45.00',
+      price: '55.00',
       category: 'beans',
     },
     {
@@ -48,7 +48,7 @@ export class SocketService {
       body: 'Beans and rice with plantain and egg',
       image: '../../assets/RiceWithPlantainAndEgg.jpg',
       alt: 'Beans and rice with plantain and egg',
-      price: '50.00',
+      price: '65.00',
       category: 'beans',
     },
     {
@@ -56,7 +56,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and chicken',
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans and rice with plantain, egg and chicken',
-      price: '60.00',
+      price: '65.00',
       category: 'beans',
     },
     {
@@ -64,7 +64,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg and meat',
-      price: '60.00',
+      price: '65.00',
       category: 'beans',
     },
     {
@@ -72,7 +72,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and fish',
       image: '../../assets/riceWithFishAndEgg.jpg',
       alt: 'Beans and rice with plantain, egg and fish',
-      price: '60.00',
+      price: '65.00',
       category: 'beans',
     },
     {
@@ -80,7 +80,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg, fish and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg, fish and meat',
-      price: '80.00',
+      price: '75.00',
       category: 'beans',
     },
     {
@@ -124,7 +124,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/b18a3b04a8894f24aa8237b0c1ee425c.jpeg',
       alt: 'Fried Rice with chicken',
-      price: '60.00',
+      price: '70.00',
       category: 'rice',
     },
     {
@@ -133,7 +133,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/16e9f7331bbe4e4f96600300b2e5a165.jpeg',
       alt: 'Fried Rice with cow meat',
-      price: '60.00',
+      price: '70.00',
       category: 'rice',
     },
     {
@@ -142,7 +142,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/58701df60c924014addee65c8a71f055.jpeg',
       alt: 'Fried Rice with red fish',
-      price: '60.00',
+      price: '70.00',
       category: 'rice',
     },
     {
@@ -151,7 +151,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/58701df60c924014addee65c8a71f055.jpeg',
       alt: 'Jollof with chicken',
-      price: '60.00',
+      price: '70.00',
       category: 'rice',
     },
     {
@@ -160,7 +160,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/e5cda0f1e59b41caad09b73e0a25b19b.jpeg',
       alt: 'Jollof with cow meat',
-      price: '60.00',
+      price: '70.00',
       category: 'rice',
     },
     {
@@ -169,7 +169,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/c1770f9226fc4cc6a7e456155d6b5aad.jpeg',
       alt: 'Jollof with red fish',
-      price: '60.00',
+      price: '70.00',
       category: 'rice',
     },
     {

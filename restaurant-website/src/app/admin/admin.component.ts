@@ -64,7 +64,7 @@ export class AdminComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private firestore: AngularFirestore
   ) {
-    this.socket = io('https://lebene-beans-updated-api.azurewebsites.net/');
+    this.socket = io('/');
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
 
     this.orders$ = this.onGetTotalOrdersCollection(
@@ -95,7 +95,7 @@ export class AdminComponent implements OnInit {
     }
 
     this.http
-      .get('https://lebene-beans-updated-api.azurewebsites.net/')
+      .get('https://lebene-beans-6fad4d876895.herokuapp.com/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus || this.day === 0) {
@@ -147,7 +147,7 @@ export class AdminComponent implements OnInit {
     };
     this.http
       .post(
-        'https://lebene-beans-updated-api.azurewebsites.net/api/openOrders',
+        'https://lebene-beans-6fad4d876895.herokuapp.com/api/openOrders',
         {},
         httpOptions
       )
@@ -163,7 +163,7 @@ export class AdminComponent implements OnInit {
     };
     this.http
       .post(
-        'https://lebene-beans-updated-api.azurewebsites.net/api/closeOrders',
+        'https://lebene-beans-6fad4d876895.herokuapp.com/api/closeOrders',
         {},
         httpOptions
       )
