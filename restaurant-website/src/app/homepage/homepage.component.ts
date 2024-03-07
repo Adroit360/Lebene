@@ -22,7 +22,7 @@ export class HomepageComponent implements OnInit {
     private http: HttpClient,
     private firestore: AngularFirestore
   ) {
-    this.socket = io('https://lebene-beans-6fad4d876895.herokuapp.com/');
+    this.socket = io('https://hubres.azurewebsites.net/');
   }
 
   foodArray: any;
@@ -40,16 +40,14 @@ export class HomepageComponent implements OnInit {
   day = new Date().getDay();
 
   ngOnInit(): void {
-    this.http
-      .get('https://lebene-beans-6fad4d876895.herokuapp.com/')
-      .subscribe((res: any) => {
-        this.orderStatus = res.orderStatus;
-        if (this.orderStatus || this.day === 0) {
-          this.closingTimeError = true;
-        } else {
-          this.closingTimeError = false;
-        }
-      });
+    this.http.get('https://hubres.azurewebsites.net/').subscribe((res: any) => {
+      this.orderStatus = res.orderStatus;
+      if (this.orderStatus || this.day === 0) {
+        this.closingTimeError = true;
+      } else {
+        this.closingTimeError = false;
+      }
+    });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;

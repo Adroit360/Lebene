@@ -22,20 +22,18 @@ export class SidebarComponent implements OnInit {
     private http: HttpClient,
     private activatedRoute: ActivatedRoute
   ) {
-    this.socket = io('https://lebene-beans-6fad4d876895.herokuapp.com/');
+    this.socket = io('https://hubres.azurewebsites.net/');
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
     // console.log('showFailed', this.showFailed);
   }
 
   ngOnInit(): void {
-    this.http
-      .get('https://lebene-beans-6fad4d876895.herokuapp.com/')
-      .subscribe((res: any) => {
-        this.orderStatus = res.orderStatus;
-        if (this.orderStatus) {
-          this.closeOrder = true;
-        }
-      });
+    this.http.get('https://hubres.azurewebsites.net/').subscribe((res: any) => {
+      this.orderStatus = res.orderStatus;
+      if (this.orderStatus) {
+        this.closeOrder = true;
+      }
+    });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
@@ -63,11 +61,7 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post(
-        'https://lebene-beans-6fad4d876895.herokuapp.com/api/openOrders',
-        {},
-        httpOptions
-      )
+      .post('https://hubres.azurewebsites.net/api/openOrders', {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }
@@ -79,11 +73,7 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post(
-        'https://lebene-beans-6fad4d876895.herokuapp.com/api/closeOrders',
-        {},
-        httpOptions
-      )
+      .post('https://hubres.azurewebsites.net/api/closeOrders', {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }

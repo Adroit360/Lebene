@@ -177,7 +177,7 @@ export class SocketService {
       body: 'Banku with okro stew (crab, Wele & Meat)',
       image: '../../assets/Banku-Fish-1.jpeg',
       alt: 'Banku with okro stew (crab, Wele & Meat)',
-      price: '70.00',
+      price: '65.00',
       category: 'banku',
     },
     {
@@ -185,7 +185,7 @@ export class SocketService {
       body: 'Banku with okro stew (crab, Wele,fish & Meat)',
       image: '../../assets/Banku-Fish-1.jpeg',
       alt: 'Banku with okro stew (crab, Wele,fish & Meat)',
-      price: '65.00',
+      price: '70.00',
       category: 'banku',
     },
     {
@@ -247,7 +247,7 @@ export class SocketService {
       body: 'Fufu with goat meat and salmon',
       image: '../../assets/fufu.jpeg',
       alt: 'Fufu with goat meat and salmon',
-      price: '65.00',
+      price: '70.00',
       category: 'fufu',
     },
     {
@@ -255,7 +255,7 @@ export class SocketService {
       body: 'Fufu with cow meat and tuna',
       image: '../../assets/fufu.jpeg',
       alt: 'Fufu with cow meat and tuna',
-      price: '65.00',
+      price: '70.00',
       category: 'fufu',
     },
     {
@@ -263,7 +263,7 @@ export class SocketService {
       body: 'Fufu with Goat meat and cow meat',
       image: '../../assets/fufu.jpeg',
       alt: 'Fufu with Goat meat and cow meat',
-      price: '65.00',
+      price: '70.00',
       category: 'fufu',
     },
     {
@@ -271,7 +271,7 @@ export class SocketService {
       body: 'Fufu with Salmon and tuna',
       image: '../../assets/fufulebene.jpg',
       alt: 'Salmon and tuna',
-      price: '65.00',
+      price: '70.00',
       category: 'fufu',
     },
   ];

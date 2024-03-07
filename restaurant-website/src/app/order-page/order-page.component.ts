@@ -53,7 +53,7 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://lebene-beans-6fad4d876895.herokuapp.com');
+    this.socket = io('https://hubres.azurewebsites.net');
     // this.socket = io('http://localhost:8000/');
     this.foodArray = this.socketService.getAllFoods();
     this.momoErrorMessage$ = this.firestore
@@ -95,7 +95,7 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://lebene-beans-6fad4d876895.herokuapp.com/paystack/payment';
+  url = 'https://hubres.azurewebsites.net/paystack/payment';
   //url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;
@@ -252,6 +252,8 @@ export class OrderPageComponent implements OnInit {
     };
     this.http.post<PaymentResponse>(this.url, body, httpOptions).subscribe(
       (res: any) => {
+        console.log('<===============data==========>', res);
+
         this.paymentLoading = false;
         if (res.error) {
           this.paymentError = true;
