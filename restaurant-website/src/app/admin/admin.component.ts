@@ -1,12 +1,12 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { io } from 'socket.io-client';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { OrderDetailsAdmin } from '../models/interface';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { OrderType } from '../single-order/single-order.component';
 import { AuthenticationService } from '../services/authentication.service';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { OrderDataService } from '../services/order-data.service';
 import dayjs from 'dayjs/esm';
 import utc from 'dayjs/esm/plugin/utc';
 dayjs.extend(utc);
@@ -16,7 +16,7 @@ dayjs.extend(utc);
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, OnDestroy {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
@@ -30,13 +30,13 @@ export class AdminComponent implements OnInit {
 
   currentPage = 'orders';
 
-  orders$: Observable<OrderDetailsAdmin[]>;
+  orders: OrderDetailsAdmin[] = [];
 
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
   isFirstTime = true;
   showOrderDetails = false;
   itemLength: number = 0;
-  subscriptions: Subscription[] = [];
+  private ordersSubscription?: Subscription;
   totalAmount = 0;
   totalOrders = 0;
   amountTobePayed = 0;
@@ -44,7 +44,7 @@ export class AdminComponent implements OnInit {
   endDate = new Date(
     new Date().getFullYear(),
     new Date().getMonth() + 1,
-    0
+    0,
   ).setHours(23, 59, 59, 999);
   foodOrdered: OrderDetailsAdmin[] = [];
 
@@ -56,35 +56,18 @@ export class AdminComponent implements OnInit {
   paidOrders!: OrderDetailsAdmin[];
 
   OrderType = OrderType;
+  private readonly apiBaseUrl: string;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private authService: AuthenticationService,
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore
+    private orderDataService: OrderDataService,
   ) {
-    this.socket = io('/');
+    this.apiBaseUrl = this.orderDataService.getApiBaseUrl();
+    this.socket = io(this.apiBaseUrl);
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
-
-    this.orders$ = this.onGetTotalOrdersCollection(
-      this.startDate,
-      this.endDate
-    );
-    let itemSubs = this.orders$.subscribe((res) => {
-      if (!this.isFirstTime && res.length > this.itemLength)
-        this.notificationAudio.play();
-      else this.isFirstTime = false;
-
-      this.itemLength = res.length;
-    });
-
-    // get the total orders and total amount
-    this.orders$.subscribe((items) => {
-      this.onCalculateOrders(items);
-    });
-
-    this.subscriptions.push(itemSubs);
   }
 
   ngOnInit(): void {
@@ -94,7 +77,7 @@ export class AdminComponent implements OnInit {
       this.showOrderDetails = authUser.isAdmin;
     }
 
-    this.http.get('https://hubres.azurewebsites.net/').subscribe((res: any) => {
+    this.http.get(`${this.apiBaseUrl}/`).subscribe((res: any) => {
       this.orderStatus = res.orderStatus;
       if (this.orderStatus || this.day === 0) {
         this.closeOrder = true;
@@ -109,20 +92,41 @@ export class AdminComponent implements OnInit {
         this.closeOrder = false;
       }
     });
+
+    this.socket.on('ordersChanged', () => {
+      this.loadOrders();
+    });
+
+    this.loadOrders();
   }
 
-  onGetTotalOrdersCollection(
-    startDate: Date,
-    endDate: number
-  ): Observable<any> {
-    return this.firestore
-      .collection('orders', (orders) =>
-        orders
-          .where('date', '>=', startDate.getTime().toString())
-          .where('date', '<=', endDate.toString())
-          .orderBy('date', 'desc')
-      )
-      .valueChanges({ idField: 'Id' });
+  loadOrders() {
+    this.ordersSubscription?.unsubscribe();
+
+    const orderSub = this.orderDataService
+      .getOrders(this.startDate.getTime(), this.endDate)
+      .subscribe({
+        next: (res) => {
+          if (!this.isFirstTime && res.length > this.itemLength) {
+            this.notificationAudio.play();
+          } else {
+            this.isFirstTime = false;
+          }
+
+          this.itemLength = res.length;
+          this.orders = res;
+          this.onCalculateOrders(res);
+        },
+        error: (err) => {
+          console.error('Failed to load admin orders', err);
+          this.orders = [];
+          this.foodOrdered = [];
+          this.deliveredOrders = [];
+          this.failedOrders = [];
+        },
+      });
+
+    this.ordersSubscription = orderSub;
   }
 
   logOut(): void {
@@ -144,7 +148,7 @@ export class AdminComponent implements OnInit {
       }),
     };
     this.http
-      .post('https://hubres.azurewebsites.net/api/openOrders', {}, httpOptions)
+      .post(`${this.apiBaseUrl}/api/openOrders`, {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }
@@ -156,7 +160,7 @@ export class AdminComponent implements OnInit {
       }),
     };
     this.http
-      .post('https://hubres.azurewebsites.net/api/closeOrders', {}, httpOptions)
+      .post(`${this.apiBaseUrl}/api/closeOrders`, {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }
@@ -177,17 +181,20 @@ export class AdminComponent implements OnInit {
 
   onDateChanged(event: any) {
     const { endDate, startDate } = this.selected;
-    this.orders$ = this.onGetTotalOrdersCollection(
-      startDate.$d,
-      new Date(endDate.$d).setHours(23, 59, 59, 999)
-    );
-
-    this.orders$.subscribe((items) => {
-      this.onCalculateOrders(items);
-    });
+    this.startDate = startDate.$d;
+    this.endDate = new Date(endDate.$d).setHours(23, 59, 59, 999);
+    this.loadOrders();
   }
 
   onCalculateOrders(items: any) {
+    console.log(
+      '----------------------------------- items -----------------------------------',
+    );
+    console.log(items);
+    console.log(
+      '-------------------------------------------------------------------------------',
+    );
+
     this.totalAmount = 0;
     this.totalOrders = 0;
     this.foodOrdered = [];
@@ -200,12 +207,17 @@ export class AdminComponent implements OnInit {
         } else {
           this.deliveredOrders.push(item);
         }
-        this.totalAmount += item.amount;
+        this.totalAmount += parseInt(item.priceOfFood);
         this.totalOrders += 1;
       } else {
         this.failedOrders.push(item);
       }
     });
+    this.totalAmount = +this.totalAmount.toFixed(2);
     this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
+  }
+
+  ngOnDestroy(): void {
+    this.ordersSubscription?.unsubscribe();
   }
 }

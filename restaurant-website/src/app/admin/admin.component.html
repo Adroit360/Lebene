@@ -21,7 +21,7 @@
   <div
     class="sidebar"
     [ngClass]="{
-      'sidebar-active': toggleSidebar
+      'sidebar-active': toggleSidebar,
     }"
   >
     <div class="sidebar__avatar">
@@ -86,6 +86,7 @@
         (change)="onDateChanged($event)"
         *ngIf="showOrderDetails"
       />
+
       <div class="order-details" *ngIf="showOrderDetails">
         <div class="card">
           <div class="card-info">
@@ -115,6 +116,7 @@
           </div>
         </div>
       </div>
+
       <h1 class="title">Orders</h1>
       <div class="display__container__items">
         <app-single-order
@@ -122,6 +124,7 @@
           [item]="item"
           [orderType]="OrderType.pendingOrder"
           [isAdmin]="showOrderDetails"
+          (orderChanged)="loadOrders()"
         ></app-single-order>
       </div>
     </main>
@@ -129,13 +132,14 @@
     <!--FAILED ORDERS-->
     <main class="display__container" *ngIf="currentPage === 'failed'">
       <!-- <button (click)="onDeleteAllFailedOrders()">DELETE ALL FAILED ORDERS</button> -->
-      <h1 class="title">Failed and Proccessing Orders</h1>
+      <h1 class="title">Failed and Processing Orders</h1>
       <div class="display__container__items">
         <app-single-order
           *ngFor="let item of failedOrders"
           [item]="item"
           [orderType]="OrderType.failed"
           [isAdmin]="showOrderDetails"
+          (orderChanged)="loadOrders()"
         ></app-single-order>
       </div>
     </main>
@@ -149,6 +153,7 @@
           [item]="item"
           [orderType]="OrderType.completed"
           [isAdmin]="showOrderDetails"
+          (orderChanged)="loadOrders()"
         ></app-single-order>
       </div>
     </main>

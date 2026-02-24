@@ -65,8 +65,8 @@
         </div>
       </li>
       <li *ngIf="isAdmin">
-        <p>Delivery Fee:</p>
-        GHS {{ item.deliveryFee }}
+        <p>Delivery:</p>
+        {{ item.deliveryFee === 0 ? "Free" : "Priority" }}
       </li>
       <li *ngIf="isAdmin">
         <p>Price Of food:</p>

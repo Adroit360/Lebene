@@ -298,6 +298,10 @@
           formControlName="robot"
         />
 
+        <div class="promo-banner" *ngIf="hasFreeDeliveryPromo">
+          Delivery fee is waived for this order.
+        </div>
+
         <div class="price-info">
           <div class="info-item">
             <p>Delivery Fee :</p>
@@ -314,6 +318,11 @@
             {{ totalPrice.toFixed(2) }}
           </div>
         </div>
+
+        <p class="free-delivery-note" *ngIf="hasFreeDeliveryPromo">
+          Free delivery orders take longer to deliver. For faster service,
+          choose Priority Delivery.
+        </p>
 
         <button type="submit" class="submit-btn">
           <div class="loader-2" *ngIf="loading"></div>

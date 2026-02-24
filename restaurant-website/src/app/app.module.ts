@@ -17,7 +17,6 @@ import {
 } from '@angular/fire/analytics';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
@@ -26,7 +25,6 @@ import {
   getRemoteConfig,
 } from '@angular/fire/remote-config';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
@@ -63,18 +61,11 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
-    // provideAuth(() => getAuth()),
-    // provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    // provideFunctions(() => getFunctions()),
-    // provideStorage(() => getStorage()),
     AngularFireModule.initializeApp(environment.firebase),
-    // AngularFirestore,
     HttpClientModule,
     NgxDaterangepickerMd.forRoot(),
   ],
-  providers: [ScreenTrackingService, UserTrackingService, AngularFirestore],
+  providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

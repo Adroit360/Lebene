@@ -16,7 +16,7 @@ export class SocketService {
       body: 'Beans with plantain and egg',
       image: '../../assets/beans and egg.jpg',
       alt: 'Beans with plantain and egg',
-      price: '40.00',
+      price: '75.00',
       category: 'beans',
     },
     {
@@ -24,7 +24,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and fish',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and fish',
-      price: '55.00',
+      price: '90.00',
       category: 'beans',
     },
     {
@@ -32,7 +32,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans with plantain, egg and meat',
-      price: '55.00',
+      price: '95.00',
       category: 'beans',
     },
     {
@@ -40,7 +40,7 @@ export class SocketService {
       body: 'Beans with plantain, egg and chicken',
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans with plantain, egg and chicken',
-      price: '55.00',
+      price: '90.00',
       category: 'beans',
     },
     {
@@ -48,7 +48,7 @@ export class SocketService {
       body: 'Beans and rice with plantain and egg',
       image: '../../assets/RiceWithPlantainAndEgg.jpg',
       alt: 'Beans and rice with plantain and egg',
-      price: '65.00',
+      price: '85.00',
       category: 'beans',
     },
     {
@@ -56,7 +56,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and chicken',
       image: '../../assets/BeansWithEggAndChicken.jpg',
       alt: 'Beans and rice with plantain, egg and chicken',
-      price: '65.00',
+      price: '100.00',
       category: 'beans',
     },
     {
@@ -64,7 +64,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg and meat',
-      price: '65.00',
+      price: '105.00',
       category: 'beans',
     },
     {
@@ -72,7 +72,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg and fish',
       image: '../../assets/riceWithFishAndEgg.jpg',
       alt: 'Beans and rice with plantain, egg and fish',
-      price: '65.00',
+      price: '100.00',
       category: 'beans',
     },
     {
@@ -80,7 +80,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg, fish and meat',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg, fish and meat',
-      price: '75.00',
+      price: '120.00',
       category: 'beans',
     },
     {
@@ -88,7 +88,7 @@ export class SocketService {
       body: 'Beans and rice with plantain, egg, fish and chicken',
       image: '../../assets/closePackage.jpg',
       alt: 'Beans and rice with plantain, egg, fish and chicken',
-      price: '70.00',
+      price: '120.00',
       category: 'beans',
     },
     {
@@ -97,7 +97,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/9d7add1feb2c4db1b0f73dc7fff65a6c.jpeg',
       alt: 'Plain rice and stew with red fish',
-      price: '60.00',
+      price: '90.00',
       category: 'rice',
     },
     {
@@ -106,7 +106,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/739162e260634fecb0778d90df445c66.jpeg',
       alt: 'Plain rice with stew and chicken',
-      price: '60.00',
+      price: '90.00',
       category: 'rice',
     },
     {
@@ -115,7 +115,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/2160423773ec4c1a836543a6f3dab9b2.jpeg',
       alt: 'Plain rice and beef',
-      price: '60.00',
+      price: '90.00',
       category: 'rice',
     },
     {
@@ -124,7 +124,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/b18a3b04a8894f24aa8237b0c1ee425c.jpeg',
       alt: 'Fried Rice with chicken',
-      price: '70.00',
+      price: '100.00',
       category: 'rice',
     },
     {
@@ -133,7 +133,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/16e9f7331bbe4e4f96600300b2e5a165.jpeg',
       alt: 'Fried Rice with cow meat',
-      price: '70.00',
+      price: '100.00',
       category: 'rice',
     },
     {
@@ -142,7 +142,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/58701df60c924014addee65c8a71f055.jpeg',
       alt: 'Fried Rice with red fish',
-      price: '70.00',
+      price: '100.00',
       category: 'rice',
     },
     {
@@ -151,7 +151,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/58701df60c924014addee65c8a71f055.jpeg',
       alt: 'Jollof with chicken',
-      price: '70.00',
+      price: '100.00',
       category: 'rice',
     },
     {
@@ -160,7 +160,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/e5cda0f1e59b41caad09b73e0a25b19b.jpeg',
       alt: 'Jollof with cow meat',
-      price: '70.00',
+      price: '100.00',
       category: 'rice',
     },
     {
@@ -169,7 +169,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/c1770f9226fc4cc6a7e456155d6b5aad.jpeg',
       alt: 'Jollof with red fish',
-      price: '70.00',
+      price: '100.00',
       category: 'rice',
     },
     {
@@ -177,7 +177,7 @@ export class SocketService {
       body: 'Banku with okro stew (crab, Wele & Meat)',
       image: '../../assets/Banku-Fish-1.jpeg',
       alt: 'Banku with okro stew (crab, Wele & Meat)',
-      price: '65.00',
+      price: '100.00',
       category: 'banku',
     },
     {
@@ -185,7 +185,7 @@ export class SocketService {
       body: 'Banku with okro stew (crab, Wele,fish & Meat)',
       image: '../../assets/Banku-Fish-1.jpeg',
       alt: 'Banku with okro stew (crab, Wele,fish & Meat)',
-      price: '70.00',
+      price: '120.00',
       category: 'banku',
     },
     {
@@ -194,7 +194,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/4ba78244b5af46af8cb509f0194d8830.jpeg',
       alt: 'Extra plantain',
-      price: '5.00',
+      price: '10.00',
       category: 'extras',
     },
     {
@@ -203,7 +203,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/ae9b1e9d51b34dd5b7d89916dfc7615d.jpeg',
       alt: 'Extra chicken',
-      price: '10.00',
+      price: '15.00',
       category: 'extras',
     },
     {
@@ -212,7 +212,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/281b3d9e91dc48c88eeea96fe7590f12.jpeg',
       alt: 'Extra beef',
-      price: '10.00',
+      price: '20.00',
       category: 'extras',
     },
     {
@@ -221,7 +221,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/d286e5c8ba964d3c8d28ec7068fd1485.jpeg',
       alt: 'Extra cow meat',
-      price: '10.00',
+      price: '20.00',
       category: 'extras',
     },
     {
@@ -230,7 +230,7 @@ export class SocketService {
       image:
         'https://d1bycbsuiqd0qu.cloudfront.net/200x200/images/5d0d109937014f97a235e76d2f91f765.jpeg',
       alt: 'Extra egg',
-      price: '3.00',
+      price: '5.00',
       category: 'extras',
     },
     {
@@ -242,38 +242,38 @@ export class SocketService {
       price: '20.00',
       category: 'extras',
     },
-    {
-      id: '91fcca31cba046fea468af2c659bcf200',
-      body: 'Fufu with goat meat and salmon',
-      image: '../../assets/fufu.jpeg',
-      alt: 'Fufu with goat meat and salmon',
-      price: '70.00',
-      category: 'fufu',
-    },
-    {
-      id: '91fcca31cba046fea468af2c659bcf201',
-      body: 'Fufu with cow meat and tuna',
-      image: '../../assets/fufu.jpeg',
-      alt: 'Fufu with cow meat and tuna',
-      price: '70.00',
-      category: 'fufu',
-    },
-    {
-      id: '91fcca31cba046fea468af2c659bcf202',
-      body: 'Fufu with Goat meat and cow meat',
-      image: '../../assets/fufu.jpeg',
-      alt: 'Fufu with Goat meat and cow meat',
-      price: '70.00',
-      category: 'fufu',
-    },
-    {
-      id: '91fcca31cba046fea468af2c659bcf202',
-      body: 'Fufu with Salmon and tuna',
-      image: '../../assets/fufulebene.jpg',
-      alt: 'Salmon and tuna',
-      price: '70.00',
-      category: 'fufu',
-    },
+    // {
+    //   id: '91fcca31cba046fea468af2c659bcf200',
+    //   body: 'Fufu with goat meat and salmon',
+    //   image: '../../assets/fufu.jpeg',
+    //   alt: 'Fufu with goat meat and salmon',
+    //   price: '100.00',
+    //   category: 'fufu',
+    // },
+    // {
+    //   id: '91fcca31cba046fea468af2c659bcf201',
+    //   body: 'Fufu with cow meat and tuna',
+    //   image: '../../assets/fufu.jpeg',
+    //   alt: 'Fufu with cow meat and tuna',
+    //   price: '100.00',
+    //   category: 'fufu',
+    // },
+    // {
+    //   id: '91fcca31cba046fea468af2c659bcf202',
+    //   body: 'Fufu with Goat meat and cow meat',
+    //   image: '../../assets/fufu.jpeg',
+    //   alt: 'Fufu with Goat meat and cow meat',
+    //   price: '100.00',
+    //   category: 'fufu',
+    // },
+    // {
+    //   id: '91fcca31cba046fea468af2c659bcf202',
+    //   body: 'Fufu with Salmon and tuna',
+    //   image: '../../assets/fufulebene.jpg',
+    //   alt: 'Salmon and tuna',
+    //   price: '100.00',
+    //   category: 'fufu',
+    // },
   ];
 
   getFoodByID(id: string): Food {

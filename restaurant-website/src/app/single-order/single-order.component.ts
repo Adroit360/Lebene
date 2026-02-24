@@ -1,9 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OrderDetailsAdmin } from '../models/interface';
+import { OrderDataService } from '../services/order-data.service';
 
 interface Order {
   // foodName: string;
@@ -24,8 +21,9 @@ export class SingleOrderComponent implements OnInit {
   @Input('item') item: OrderDetailsAdmin = {} as OrderDetailsAdmin;
   @Input('orderType') orderType: OrderType = OrderType.failed;
   @Input() isAdmin = false;
+  @Output() orderChanged = new EventEmitter<void>();
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private orderDataService: OrderDataService) {}
 
   ngOnInit(): void {}
 
@@ -33,27 +31,31 @@ export class SingleOrderComponent implements OnInit {
 
   onOrderDelivered(id: string, orderId: string): void {
     if (window.confirm(`Are you sure you want to comfirm oder: ${orderId}?`)) {
-      this.updateOrder(id, { completed: true })
-        // .then((res) => (res))
-        .catch((err) => {});
-      this.success = true;
+      this.updateOrder(id, { completed: true }).subscribe({
+        next: () => {
+          this.success = true;
+          this.orderChanged.emit();
+        },
+      });
     }
   }
 
   onCancelOrder(id: string, orderId: string) {
     if (window.confirm(`Do you really want to delete oder: ${orderId}?`)) {
-      this.deleteOrder(id)
-        // .then((res) => (res))
-        .catch((err) => err);
+      this.deleteOrder(id).subscribe({
+        next: () => {
+          this.orderChanged.emit();
+        },
+      });
     }
   }
 
-  updateOrder(id: string, data: { completed: boolean }): Promise<void> {
-    return this.firestore.collection('orders').doc(id).update(data);
+  updateOrder(id: string, data: { completed: boolean }) {
+    return this.orderDataService.updateOrder(id, data);
   }
 
-  deleteOrder(id: string): Promise<void> {
-    return this.firestore.collection('orders').doc(id).delete();
+  deleteOrder(id: string) {
+    return this.orderDataService.deleteOrder(id);
   }
 }
 

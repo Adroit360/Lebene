@@ -4,11 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -18,6 +13,7 @@ import { PaymentResponse, Order, Food } from '../models/interface';
 import { v4 as uuidv4 } from 'uuid';
 import { cities } from '../models/accra';
 import { DomSanitizer } from '@angular/platform-browser';
+import { OrderDataService } from '../services/order-data.service';
 
 @Component({
   selector: 'app-order-page',
@@ -25,6 +21,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./order-page.component.scss'],
 })
 export class OrderPageComponent implements OnInit {
+  private readonly apiBaseUrl: string;
   addAnotherItemModal: boolean = false;
   foodsOrdered: {
     id: string;
@@ -42,23 +39,66 @@ export class OrderPageComponent implements OnInit {
   payStackModal = false;
   errorMessage = '';
   category = 'beans';
-  filters = ['beans', 'extras', 'rice', 'banku', 'fufu'];
+  filters = ['beans', 'extras', 'rice', 'banku'];
   showLocation = true;
+  readonly freeDeliveryPromoToken = 'vals';
+  readonly freeDeliveryPromoStorageKey = 'freeDeliveryPromo';
+  hasFreeDeliveryPromo = false;
+  private isFreeDeliveryWindow(): boolean {
+    const now = new Date();
+    return (
+      now.getFullYear() === 2026 && now.getMonth() === 1 && now.getDate() === 14
+    );
+  }
+
+  private getTotalPacks(): number {
+    return this.foodsOrdered.reduce((sum, food) => {
+      const qty = Number(food.quantity || 0);
+      return sum + (Number.isFinite(qty) ? qty : 0);
+    }, 0);
+  }
+
+  private updateFreeDeliveryPromo(): void {
+    const promoParam = this.route.snapshot.queryParamMap
+      .get('promo')
+      ?.toLowerCase();
+    const promoStorage = localStorage.getItem(this.freeDeliveryPromoStorageKey);
+
+    if (
+      promoParam === this.freeDeliveryPromoToken &&
+      this.isFreeDeliveryWindow()
+    ) {
+      localStorage.setItem(
+        this.freeDeliveryPromoStorageKey,
+        this.freeDeliveryPromoToken,
+      );
+    }
+
+    if (!this.isFreeDeliveryWindow()) {
+      localStorage.removeItem(this.freeDeliveryPromoStorageKey);
+    }
+
+    const hasPromoCode =
+      promoParam === this.freeDeliveryPromoToken ||
+      promoStorage === this.freeDeliveryPromoToken;
+    const hasValidQuantity = this.getTotalPacks() > 1;
+    this.hasFreeDeliveryPromo =
+      this.isFreeDeliveryWindow() && hasPromoCode && hasValidQuantity;
+  }
 
   constructor(
     private router: Router,
-    private firestore: AngularFirestore,
     private http: HttpClient,
     private socketService: SocketService,
     private route: ActivatedRoute,
-    public domSanitizer: DomSanitizer
+    public domSanitizer: DomSanitizer,
+    private orderDataService: OrderDataService,
   ) {
-    this.socket = io('https://hubres.azurewebsites.net');
-    // this.socket = io('http://localhost:8000/');
+    this.apiBaseUrl = this.orderDataService.getApiBaseUrl();
+    this.socket = io(this.apiBaseUrl);
+    this.url = `${this.apiBaseUrl}/paystack/payment`;
     this.foodArray = this.socketService.getAllFoods();
-    this.momoErrorMessage$ = this.firestore
-      .collection('messages')
-      .valueChanges();
+    this.momoErrorMessage$ = this.orderDataService.getMomoMessages();
     this.momoErrorMessage$.subscribe((res) => {
       for (let i = 0; i < res.length; i++) {
         if (
@@ -95,8 +135,7 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://hubres.azurewebsites.net/paystack/payment';
-  //url = 'http://localhost:8000/paystack/payment';
+  url = '';
 
   paymentError = false;
   paymentSuccess = false;
@@ -132,6 +171,7 @@ export class OrderPageComponent implements OnInit {
         quantity: 1,
         price: +data.price,
       });
+      this.updateFreeDeliveryPromo();
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     });
 
@@ -164,7 +204,7 @@ export class OrderPageComponent implements OnInit {
 
   async postDetailsToFireBase(data: OrderDetails): Promise<void> {
     try {
-      await this.createOrder(data);
+      await Promise.resolve(data);
     } catch (error) {
       console.log(error);
     }
@@ -259,14 +299,16 @@ export class OrderPageComponent implements OnInit {
           this.paymentError = true;
         }
         this.payStackUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
-          res.auth_url
+          res.auth_url,
         );
         this.payStackModal = true;
+        // localStorage.removeItem(this.freeDeliveryPromoStorageKey);
       },
       (error) => {
         this.paymentError = true;
         this.loading = false;
-      }
+        // localStorage.removeItem(this.freeDeliveryPromoStorageKey);
+      },
     );
   }
 
@@ -275,26 +317,12 @@ export class OrderPageComponent implements OnInit {
       return 'Please select at least one food item';
     }
     let invalidNumberOfPacks = Object.keys(orderDetails.numberOfPacks).filter(
-      (i) => !orderDetails.numberOfPacks[i]
+      (i) => !orderDetails.numberOfPacks[i],
     );
     if (invalidNumberOfPacks.length > 0) {
       return 'Please select the number of packs for each food item';
     }
     return false;
-  }
-
-  createOrder(data: OrderDetails) {
-    return new Promise<any>((resolve, reject) => {
-      this.firestore
-        .collection('orders')
-        .add(data)
-        .then(
-          (res) => {
-            resolve(res);
-          },
-          (err) => reject(err)
-        );
-    });
   }
 
   getPhoneNetWork(phoneNumber: string): string | null {
@@ -339,13 +367,20 @@ export class OrderPageComponent implements OnInit {
     });
     this.priceOfFood = foodsPrice.toFixed(2);
 
+    this.updateFreeDeliveryPromo();
+    if (this.showLocation && this.orderForm.value.location) {
+      this.onCalculateFee(this.orderForm.value.location);
+      return;
+    }
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
 
     return;
   }
 
   onCalculateFee(event: any): void {
-    const selectedLocation = event.target.value;
+    this.updateFreeDeliveryPromo();
+    const selectedLocation =
+      typeof event === 'string' ? event : event?.target?.value;
     const city: { name: string; price: number } | undefined =
       this.locations.find((item) => item.name === selectedLocation);
     if (!city) {
@@ -360,7 +395,7 @@ export class OrderPageComponent implements OnInit {
       // this.orderForm.patchValue({
       //   deliveryFee: city.price.toFixed(2),
       // });
-      this.deliveryFee = city.price;
+      this.deliveryFee = this.hasFreeDeliveryPromo ? 0 : city.price;
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     }
   }
@@ -383,7 +418,7 @@ export class OrderPageComponent implements OnInit {
     this.foodArray = this.socketService
       .getAllFoods()
       .filter(
-        (i) => !foodOrderedIds.includes(i.id) && i.category === this.category
+        (i) => !foodOrderedIds.includes(i.id) && i.category === this.category,
       );
     this.addAnotherItemModal = true;
   }
@@ -409,6 +444,7 @@ export class OrderPageComponent implements OnInit {
       .toFixed(2);
 
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+    this.updateFreeDeliveryPromo();
 
     this.closeAddAnotherItemModal();
   }
@@ -423,6 +459,7 @@ export class OrderPageComponent implements OnInit {
       .toFixed(2);
 
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+    this.updateFreeDeliveryPromo();
   }
 
   onCloseLocationModal() {
@@ -445,6 +482,15 @@ export class OrderPageComponent implements OnInit {
       this.calculateAmount(event);
     } else {
       this.showLocation = true;
+      this.updateFreeDeliveryPromo();
+      if (this.hasFreeDeliveryPromo) {
+        this.deliveryFee = 0;
+        this.totalPrice = this.getTotalPrice(
+          this.deliveryFee,
+          this.priceOfFood,
+        );
+        return;
+      }
       if (this.orderForm.value.location) {
         this.onCalculateFee(this.orderForm.value.location);
       }

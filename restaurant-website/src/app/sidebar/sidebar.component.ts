@@ -4,6 +4,7 @@ import { AuthenticationService } from './../services/authentication.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { io } from 'socket.io-client';
 import { ActivatedRoute } from '@angular/router';
+import { OrderDataService } from '../services/order-data.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,21 +15,24 @@ export class SidebarComponent implements OnInit {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
+  private readonly apiBaseUrl: string;
   showFailed = false;
   @Output('toggleSideBar') toggleSidebarEvent = new EventEmitter();
   constructor(
     private authService: AuthenticationService,
     private router: Router,
     private http: HttpClient,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private orderDataService: OrderDataService,
   ) {
-    this.socket = io('https://hubres.azurewebsites.net/');
+    this.apiBaseUrl = this.orderDataService.getApiBaseUrl();
+    this.socket = io(this.apiBaseUrl);
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
     // console.log('showFailed', this.showFailed);
   }
 
   ngOnInit(): void {
-    this.http.get('https://hubres.azurewebsites.net/').subscribe((res: any) => {
+    this.http.get(`${this.apiBaseUrl}/`).subscribe((res: any) => {
       this.orderStatus = res.orderStatus;
       if (this.orderStatus) {
         this.closeOrder = true;
@@ -61,7 +65,7 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post('https://hubres.azurewebsites.net/api/openOrders', {}, httpOptions)
+      .post(`${this.apiBaseUrl}/api/openOrders`, {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }
@@ -73,7 +77,7 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post('https://hubres.azurewebsites.net/api/closeOrders', {}, httpOptions)
+      .post(`${this.apiBaseUrl}/api/closeOrders`, {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }

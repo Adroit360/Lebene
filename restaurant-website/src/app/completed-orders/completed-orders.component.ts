@@ -1,8 +1,9 @@
 import { OrderDetailsAdmin } from './../models/interface';
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { OrderType } from '../single-order/single-order.component';
+import { map } from 'rxjs/operators';
+import { OrderDataService } from '../services/order-data.service';
 
 @Component({
   selector: 'app-completed-orders',
@@ -18,29 +19,18 @@ export class CompletedOrdersComponent implements OnInit {
   endDate = new Date(
     new Date().getFullYear(),
     new Date().getMonth() + 1,
-    0
+    0,
   ).setHours(23, 59, 59, 999);
   totalCount = 0;
-  constructor(private firestore: AngularFirestore) {
+  constructor(private orderDataService: OrderDataService) {
     // this.item$ = this.GetCompletedOrdersCollection();
   }
 
-  ngOnInit(): void {
-    // this.firestore
-    //   .collection('orders', (orders) => orders.where('completed', '==', true))
-    //   .valueChanges()
-    //   .subscribe((res) => console.log(res));
-  }
+  ngOnInit(): void {}
 
   GetCompletedOrdersCollection(): Observable<any> {
-    return this.firestore
-      .collection('orders', (orders) =>
-        orders
-          .where('date', '>=', this.startDate.getTime().toString())
-          .where('date', '<=', this.endDate.toString())
-          .where('completed', '==', true)
-          .orderBy('date', 'desc')
-      )
-      .valueChanges({ idField: 'Id' });
+    return this.orderDataService
+      .getOrders(this.startDate.getTime(), this.endDate)
+      .pipe(map((items) => items.filter((item) => item.completed)));
   }
 }

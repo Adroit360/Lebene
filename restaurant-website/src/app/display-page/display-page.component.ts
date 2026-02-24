@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, Subscription, tap } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
 import { OrderType } from '../single-order/single-order.component';
+import { OrderDataService } from '../services/order-data.service';
 
 interface Order {
   // foodName: string;
@@ -32,11 +32,11 @@ export class DisplayPageComponent implements OnInit {
   endDate = new Date(
     new Date().getFullYear(),
     new Date().getMonth() + 1,
-    0
+    0,
   ).setHours(23, 59, 59, 999);
   foodOrdered: OrderDetailsAdmin[] = [];
   customers: { name: string; phoneNumber: string }[] = [];
-  constructor(private firestore: AngularFirestore) {
+  constructor(private orderDataService: OrderDataService) {
     // this.orders$ = this.onGetTotalOrdersCollection();
     // let itemSubs = this.orders$.subscribe((res) => {
     //   if (!this.isFirstTime && res.length > this.itemLength)
@@ -84,48 +84,44 @@ export class DisplayPageComponent implements OnInit {
   }
 
   exampleGetCollection(): Observable<any> {
-    return this.firestore
-      .collection('orders', (orders) =>
-        orders
-          .where('date', '>=', this.startDate.getTime().toString())
-          .where('date', '<=', this.endDate.toString())
-          .where('completed', '==', false)
-          .where('orderPaid', '==', true)
-          .orderBy('date', 'desc')
-      )
-      .valueChanges({ idField: 'Id' });
+    return this.orderDataService.getOrders(
+      this.startDate.getTime(),
+      this.endDate,
+    );
   }
 
   onGetTotalOrdersCollection(): Observable<any> {
-    return this.firestore
-      .collection('orders', (orders) =>
-        orders.where('orderPaid', '==', true).orderBy('date', 'desc')
-      )
-      .valueChanges({ idField: 'Id' });
+    return this.orderDataService.getOrders(
+      this.startDate.getTime(),
+      this.endDate,
+    );
   }
 
   onOrderDelivered(id: string, orderId: string): void {
     if (window.confirm(`Are you sure you want to comfirm oder: ${orderId}?`)) {
-      this.updateOrder(id, { completed: true })
-        // .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      this.updateOrder(id, { completed: true }).subscribe({
+        next: () => {
+          this.success = true;
+        },
+        error: (err) => console.log(err),
+      });
       this.success = true;
     }
   }
 
   onCancelOrder(id: string, orderId: string) {
     if (window.confirm(`Do you really want to delete oder: ${orderId}?`)) {
-      this.deleteOrder(id)
-        // .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      this.deleteOrder(id).subscribe({
+        error: (err) => console.log(err),
+      });
     }
   }
 
-  updateOrder(id: string, data: { completed: boolean }): Promise<void> {
-    return this.firestore.collection('orders').doc(id).update(data);
+  updateOrder(id: string, data: { completed: boolean }) {
+    return this.orderDataService.updateOrder(id, data);
   }
 
-  deleteOrder(id: string): Promise<void> {
-    return this.firestore.collection('orders').doc(id).delete();
+  deleteOrder(id: string) {
+    return this.orderDataService.deleteOrder(id);
   }
 }
