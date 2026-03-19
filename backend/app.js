@@ -7,6 +7,7 @@ const axios = require("axios");
 const {
   sequelize,
   Order,
+  DeliveryLocation,
   mapOrderForClient,
   createOrderFromPayload,
   getOrderByOrderId,
@@ -45,6 +46,30 @@ app.get("/api/messages", (req, res) => {
       message: momoMessage,
     },
   ]);
+});
+
+app.get("/api/delivery-locations", async (req, res) => {
+  try {
+    const locations = await DeliveryLocation.findAll({
+      attributes: ["name", "price"],
+      order: [["name", "ASC"]],
+    });
+
+    return res.json(
+      locations.map((location) => {
+        const raw = location.get({ plain: true });
+        return {
+          name: String(raw.name || "").trim(),
+          price: Number(raw.price || 0),
+        };
+      }),
+    );
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch delivery locations" });
+  }
 });
 
 app.get("/api/orders", async (req, res) => {

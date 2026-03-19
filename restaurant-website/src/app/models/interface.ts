@@ -28,6 +28,11 @@ export interface Food {
   category: string;
 }
 
+export interface DeliveryLocation {
+  name: string;
+  price: number;
+}
+
 export interface OrderDetails {
   date: string;
   orderId: string;

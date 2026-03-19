@@ -9,9 +9,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { io } from 'socket.io-client';
-import { PaymentResponse, Order, Food } from '../models/interface';
+import {
+  PaymentResponse,
+  Order,
+  Food,
+  DeliveryLocation,
+} from '../models/interface';
 import { v4 as uuidv4 } from 'uuid';
-import { cities } from '../models/accra';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OrderDataService } from '../services/order-data.service';
 
@@ -41,14 +45,12 @@ export class OrderPageComponent implements OnInit {
   category = 'beans';
   filters = ['beans', 'extras', 'rice', 'banku'];
   showLocation = true;
-  readonly freeDeliveryPromoToken = 'vals';
-  readonly freeDeliveryPromoStorageKey = 'freeDeliveryPromo';
   hasFreeDeliveryPromo = false;
   private isFreeDeliveryWindow(): boolean {
     const now = new Date();
-    return (
-      now.getFullYear() === 2026 && now.getMonth() === 1 && now.getDate() === 14
-    );
+    const start = new Date(2026, 2, 2, 0, 0, 0, 0);
+    const end = new Date(2026, 2, 7, 23, 59, 59, 999);
+    return now >= start && now <= end;
   }
 
   private getTotalPacks(): number {
@@ -59,31 +61,8 @@ export class OrderPageComponent implements OnInit {
   }
 
   private updateFreeDeliveryPromo(): void {
-    const promoParam = this.route.snapshot.queryParamMap
-      .get('promo')
-      ?.toLowerCase();
-    const promoStorage = localStorage.getItem(this.freeDeliveryPromoStorageKey);
-
-    if (
-      promoParam === this.freeDeliveryPromoToken &&
-      this.isFreeDeliveryWindow()
-    ) {
-      localStorage.setItem(
-        this.freeDeliveryPromoStorageKey,
-        this.freeDeliveryPromoToken,
-      );
-    }
-
-    if (!this.isFreeDeliveryWindow()) {
-      localStorage.removeItem(this.freeDeliveryPromoStorageKey);
-    }
-
-    const hasPromoCode =
-      promoParam === this.freeDeliveryPromoToken ||
-      promoStorage === this.freeDeliveryPromoToken;
     const hasValidQuantity = this.getTotalPacks() > 1;
-    this.hasFreeDeliveryPromo =
-      this.isFreeDeliveryWindow() && hasPromoCode && hasValidQuantity;
+    this.hasFreeDeliveryPromo = this.isFreeDeliveryWindow() && hasValidQuantity;
   }
 
   constructor(
@@ -145,7 +124,7 @@ export class OrderPageComponent implements OnInit {
   paymentLoading = false;
   paymentReason = 'Processing payment...';
   price = '';
-  locations: { name: string; price: number }[] = cities;
+  locations: DeliveryLocation[] = [];
   invalidLocation = false;
   priceOfFood = '';
   deliveryFee = 0;
@@ -155,6 +134,8 @@ export class OrderPageComponent implements OnInit {
 
   ngOnInit(): void {
     window.scroll(0, 0);
+    this.loadDeliveryLocations();
+
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
       const data: Food = this.socketService.getFoodByID(id);
@@ -381,8 +362,12 @@ export class OrderPageComponent implements OnInit {
     this.updateFreeDeliveryPromo();
     const selectedLocation =
       typeof event === 'string' ? event : event?.target?.value;
-    const city: { name: string; price: number } | undefined =
-      this.locations.find((item) => item.name === selectedLocation);
+    const selectedLocationKey = String(selectedLocation || '')
+      .trim()
+      .toLowerCase();
+    const city = this.locations.find(
+      (item) => item.name.trim().toLowerCase() === selectedLocationKey,
+    );
     if (!city) {
       this.invalidLocation = true;
       // this.orderForm.patchValue({
@@ -495,5 +480,23 @@ export class OrderPageComponent implements OnInit {
         this.onCalculateFee(this.orderForm.value.location);
       }
     }
+  }
+
+  private loadDeliveryLocations(): void {
+    this.orderDataService.getDeliveryLocations().subscribe({
+      next: (locations) => {
+        this.locations = (locations || []).map((location) => ({
+          name: String(location.name || '').trim(),
+          price: Number(location.price || 0),
+        }));
+
+        if (this.showLocation && this.orderForm.value.location) {
+          this.onCalculateFee(this.orderForm.value.location);
+        }
+      },
+      error: () => {
+        this.locations = [];
+      },
+    });
   }
 }

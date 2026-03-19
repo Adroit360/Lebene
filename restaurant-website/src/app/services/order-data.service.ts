@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { OrderDetailsAdmin } from '../models/interface';
+import { DeliveryLocation, OrderDetailsAdmin } from '../models/interface';
 
 interface MessageItem {
   type: string;
@@ -27,6 +27,12 @@ export class OrderDataService {
 
   getMomoMessages(): Observable<MessageItem[]> {
     return this.http.get<MessageItem[]>(`${this.baseUrl}/api/messages`);
+  }
+
+  getDeliveryLocations(): Observable<DeliveryLocation[]> {
+    return this.http.get<DeliveryLocation[]>(
+      `${this.baseUrl}/api/delivery-locations`,
+    );
   }
 
   getOrders(

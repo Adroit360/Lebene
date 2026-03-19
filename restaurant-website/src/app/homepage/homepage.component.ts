@@ -1,6 +1,6 @@
 import { SocketService } from './../services/socket-service.service';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { io } from 'socket.io-client';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -16,12 +16,9 @@ export class HomepageComponent implements OnInit {
   private readonly apiBaseUrl: string;
   category = 'all foods';
   filters = ['all foods', 'beans', 'rice', 'banku'];
-  readonly freeDeliveryPromoToken = 'vals';
-  readonly freeDeliveryPromoStorageKey = 'freeDeliveryPromo';
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private socketService: SocketService,
     private http: HttpClient,
     private orderDataService: OrderDataService,
@@ -44,29 +41,7 @@ export class HomepageComponent implements OnInit {
   momoError = false;
   day = new Date().getDay();
 
-  private isFreeDeliveryWindow(): boolean {
-    const now = new Date();
-    return (
-      now.getFullYear() === 2026 && now.getMonth() === 1 && now.getDate() === 14
-    );
-  }
-
   ngOnInit(): void {
-    const promoParam = this.route.snapshot.queryParamMap
-      .get('promo')
-      ?.toLowerCase();
-    if (
-      promoParam === this.freeDeliveryPromoToken &&
-      this.isFreeDeliveryWindow()
-    ) {
-      localStorage.setItem(
-        this.freeDeliveryPromoStorageKey,
-        this.freeDeliveryPromoToken,
-      );
-    } else if (!this.isFreeDeliveryWindow()) {
-      localStorage.removeItem(this.freeDeliveryPromoStorageKey);
-    }
-
     this.http.get(`${this.apiBaseUrl}/`).subscribe((res: any) => {
       this.orderStatus = res.orderStatus;
       if (this.orderStatus || this.day === 0) {

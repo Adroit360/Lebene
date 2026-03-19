@@ -21,7 +21,7 @@
   <div
     class="sidebar"
     [ngClass]="{
-      'sidebar-active': toggleSidebar,
+      'sidebar-active': toggleSidebar
     }"
   >
     <div class="sidebar__avatar">
@@ -88,7 +88,11 @@
       />
 
       <div class="order-details" *ngIf="showOrderDetails">
-        <div class="card">
+        <div
+          class="card"
+          (click)="onTotalOrdersClick()"
+          style="cursor: pointer"
+        >
           <div class="card-info">
             <span class="card__heading">Total Orders(This month)</span>
             <span class="card__quantity">{{ totalOrders }}</span>
@@ -115,6 +119,15 @@
             <span class="material-icons"> payments </span>
           </div>
         </div>
+        <div class="card" *ngIf="showDeliveryCard">
+          <div class="card-info">
+            <span class="card__heading">Total Delivery</span>
+            <span class="card__quantity">₵{{ totalDeliveryFees }}</span>
+          </div>
+          <div class="card-icon">
+            <span class="material-icons"> local_shipping </span>
+          </div>
+        </div>
       </div>
 
       <h1 class="title">Orders</h1>
@@ -124,7 +137,6 @@
           [item]="item"
           [orderType]="OrderType.pendingOrder"
           [isAdmin]="showOrderDetails"
-          (orderChanged)="loadOrders()"
         ></app-single-order>
       </div>
     </main>
@@ -132,14 +144,13 @@
     <!--FAILED ORDERS-->
     <main class="display__container" *ngIf="currentPage === 'failed'">
       <!-- <button (click)="onDeleteAllFailedOrders()">DELETE ALL FAILED ORDERS</button> -->
-      <h1 class="title">Failed and Processing Orders</h1>
+      <h1 class="title">Failed and Proccessing Orders</h1>
       <div class="display__container__items">
         <app-single-order
           *ngFor="let item of failedOrders"
           [item]="item"
           [orderType]="OrderType.failed"
           [isAdmin]="showOrderDetails"
-          (orderChanged)="loadOrders()"
         ></app-single-order>
       </div>
     </main>
@@ -153,9 +164,38 @@
           [item]="item"
           [orderType]="OrderType.completed"
           [isAdmin]="showOrderDetails"
-          (orderChanged)="loadOrders()"
         ></app-single-order>
       </div>
     </main>
+  </div>
+
+  <!-- Access Code Modal -->
+  <div class="modal" *ngIf="showAccessModal">
+    <div class="modal-overlay" (click)="onCloseAccessModal()"></div>
+    <div class="popup center">
+      <div class="modal-header">
+        <h2>Enter Access Code</h2>
+        <button class="close-btn" (click)="onCloseAccessModal()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input
+          type="text"
+          class="access-input"
+          placeholder="Enter access code"
+          [(ngModel)]="accessCodeInput"
+          (keyup.enter)="onSubmitAccessCode()"
+        />
+        <p class="error-message" *ngIf="accessCodeError">
+          Invalid access code. Please try again.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="submit-btn" (click)="onSubmitAccessCode()">
+          Submit
+        </button>
+      </div>
+    </div>
   </div>
 </div>

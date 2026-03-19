@@ -9,7 +9,8 @@
   color: white;
   height: 4rem;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  box-shadow: rgb(0 0 0 / 20%) 0px 0.2rem 0.32rem -1px,
+  box-shadow:
+    rgb(0 0 0 / 20%) 0px 0.2rem 0.32rem -1px,
     rgb(0 0 0 / 14%) 0px 0.375rem 0.625rem 0px,
     rgb(0 0 0 / 12%) 0px 1px 1.125rem 0px;
   background-image: linear-gradient(
@@ -109,9 +110,13 @@
       left: -210px;
       position: absolute;
       transition: all 400ms linear;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-        0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-        0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.07),
+        0 2px 4px rgba(0, 0, 0, 0.07),
+        0 4px 8px rgba(0, 0, 0, 0.07),
+        0 8px 16px rgba(0, 0, 0, 0.07),
+        0 16px 32px rgba(0, 0, 0, 0.07),
+        0 32px 64px rgba(0, 0, 0, 0.07);
     }
   }
   .sidebar-active {
@@ -267,7 +272,9 @@
       flex-direction: column;
       gap: 1rem;
       padding: 1rem;
-      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+      box-shadow:
+        0 0 20px 0 rgba(0, 0, 0, 0.2),
+        0 5px 5px 0 rgba(0, 0, 0, 0.24);
       .card__title {
         ul {
           margin: 0;
@@ -377,7 +384,9 @@
   background-clip: border-box;
   border: 0 solid #eceef3;
   border-radius: 0.75rem;
-  box-shadow: 0 3px 3px -1px #0a16461a, 0 0 1px #0a16460f;
+  box-shadow:
+    0 3px 3px -1px #0a16461a,
+    0 0 1px #0a16460f;
   padding: 1rem 2rem;
 }
 .card-info {
@@ -427,11 +436,146 @@
   border: none;
   height: 3rem;
   border-radius: 0.4rem;
-  box-shadow: 0 3px 3px -1px #0a16461a, 0 0 1px #0a16460f;
+  box-shadow:
+    0 3px 3px -1px #0a16461a,
+    0 0 1px #0a16460f;
   width: max-content;
   padding: 0 1rem;
   margin-bottom: 1rem;
   @media screen and (max-width: 800px) {
     margin-left: 4rem;
+  }
+}
+
+// Access Code Modal Styles
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.popup {
+  position: relative;
+  z-index: 2;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 400px;
+  padding: 2rem;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #16192c;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6d7d95;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #16192c;
+    }
+
+    .material-icons {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.modal-body {
+  margin-bottom: 1.5rem;
+
+  .access-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #eceef3;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #f6d401;
+    }
+  }
+
+  .error-message {
+    margin: 0.75rem 0 0 0;
+    color: #ff0000;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  .submit-btn {
+    background-color: #f6d401;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #e5c401;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(246, 212, 1, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
 }

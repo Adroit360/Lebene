@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "db:sync": "node scripts/sync-schema.js",
-    "db:import-orders": "node scripts/import-orders.js"
+    "db:import-orders": "node scripts/import-orders.js",
+    "db:import-locations": "node scripts/import-delivery-locations.js"
   },
   "engines": {
     "node": "16.10.0"

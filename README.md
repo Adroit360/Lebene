@@ -27,6 +27,21 @@ Notes:
 - Firestore `id` is stored as `legacyId` in MySQL.
 - API response keeps `Id` as the MySQL primary key, and also returns `legacyId`.
 
+### Import delivery locations into MySQL
+
+To migrate the hardcoded locations list to MySQL and serve it via API:
+
+- `npm run db:import-locations`
+
+Optional custom source file:
+
+- `npm run db:import-locations -- --file /absolute/path/to/locations.json`
+
+Notes:
+
+- Supports either JSON array input (`[{"name":"...","price":30}]`) or the existing TypeScript format in `restaurant-website/src/app/models/accra.ts`.
+- Frontend order page now reads locations from `GET /api/delivery-locations`.
+
 ## Frontend setup
 
 1. Go to `restaurant-website` and install dependencies.

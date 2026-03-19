@@ -89,7 +89,7 @@ export const cities = [
   { name: 'South La', price: 30 },
   { name: 'South Shiashie', price: 30 },
   { name: 'Sowutwuom', price: 40 },
-  { name: 'Spintex', price: 40 },
+  { name: 'Spintex', price: 65 },
   { name: 'Sukura', price: 30 },
   { name: 'Taifa-Burkina', price: 40 },
   { name: 'Taifa', price: 40 },
@@ -109,7 +109,7 @@ export const cities = [
   { name: 'Tabora', price: 30 },
   { name: 'Sakumono', price: 45 },
   { name: 'Tse Addo', price: 30 },
-  { name: 'Lashibi', price: 50 },
+  { name: 'Lashibi', price: 65 },
   { name: 'McCarthy Hills', price: 60 },
   { name: 'Trassaco', price: 60 },
 ];

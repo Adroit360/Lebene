@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const sequelize = require("../db/sequelize");
 const Order = require("./order");
 const OrderItem = require("./orderItem");
+const DeliveryLocation = require("./deliveryLocation");
 
 Order.hasMany(OrderItem, {
   foreignKey: "orderIdFk",
@@ -140,6 +141,7 @@ module.exports = {
   Op,
   Order,
   OrderItem,
+  DeliveryLocation,
   mapOrderForClient,
   createOrderFromPayload,
   getOrderByOrderId,

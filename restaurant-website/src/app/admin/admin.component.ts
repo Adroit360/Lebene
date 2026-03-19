@@ -40,6 +40,12 @@ export class AdminComponent implements OnInit, OnDestroy {
   totalAmount = 0;
   totalOrders = 0;
   amountTobePayed = 0;
+  totalDeliveryFees = 0;
+  clickCount = 0;
+  showAccessModal = false;
+  showDeliveryCard = false;
+  accessCodeInput = '';
+  accessCodeError = false;
   startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
   endDate = new Date(
     new Date().getFullYear(),
@@ -197,6 +203,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.totalAmount = 0;
     this.totalOrders = 0;
+    this.totalDeliveryFees = 0;
     this.foodOrdered = [];
     this.deliveredOrders = [];
     this.failedOrders = [];
@@ -206,6 +213,10 @@ export class AdminComponent implements OnInit, OnDestroy {
           this.foodOrdered.push(item);
         } else {
           this.deliveredOrders.push(item);
+          // Sum delivery fees from completed orders
+          if (item.deliveryFee) {
+            this.totalDeliveryFees += item.deliveryFee;
+          }
         }
         this.totalAmount += parseInt(item.priceOfFood);
         this.totalOrders += 1;
@@ -215,6 +226,30 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
     this.totalAmount = +this.totalAmount.toFixed(2);
     this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
+    this.totalDeliveryFees = +this.totalDeliveryFees.toFixed(2);
+  }
+
+  onTotalOrdersClick() {
+    this.clickCount++;
+    if (this.clickCount === 5) {
+      this.showAccessModal = true;
+    }
+  }
+
+  onSubmitAccessCode() {
+    if (this.accessCodeInput.trim() === 'access') {
+      this.showDeliveryCard = true;
+      this.onCloseAccessModal();
+    } else {
+      this.accessCodeError = true;
+    }
+  }
+
+  onCloseAccessModal() {
+    this.showAccessModal = false;
+    this.clickCount = 0;
+    this.accessCodeInput = '';
+    this.accessCodeError = false;
   }
 
   ngOnDestroy(): void {
